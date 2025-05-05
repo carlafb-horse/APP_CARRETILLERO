@@ -3180,11 +3180,12 @@ router.get('/obtenerDatos/:referencia/:puesto_id', (req, res) => {
 /**
  * End point para actualizar las etapas
  */
-router.put('/actualizarEtapa/:id_puesto/:operacion/:nuevo_numero_picadas', (req, res) => {
-    const { id_puesto, operacion, nuevo_numero_picadas } = req.params;
+router.put('/actualizarEtapa/:id_puesto/:operacion/:nuevo_valor/:opcion', (req, res) => {
+    const { id_puesto, operacion, nuevo_valor, opcion } = req.params;
+    console.log("OPCION: ", opcion, "TIPO: ", typeof opcion);
 
     // Verificamos que el número de picadas sea mayor que 0
-    if (nuevo_numero_picadas <= 0) {
+    if (nuevo_valor <= 0) {
         return res.status(400).send('El número de picadas debe ser mayor que 0');
     }
 
@@ -3221,29 +3222,49 @@ router.put('/actualizarEtapa/:id_puesto/:operacion/:nuevo_numero_picadas', (req,
 
             // Recorremos los resultados obtenidos
             selectResult.forEach((row) => {
-                const { id, actividad_minutos } = row;
-                console.log('ID de la etapa: ', id);
-                console.log('Actividad en minutos: ', actividad_minutos);
+                const { id, actividad_minutos, cantidad_mover } = row;
 
                 // Realizamos los cálculos necesarios con el valor de "nuevo"
-                const actividad_minutos_picadas = actividad_minutos / nuevo_numero_picadas;
-                console.log('Actividad en minutos por picada: ', actividad_minutos_picadas);
+                const actividad_minutos_picadas = actividad_minutos / nuevo_valor;
+
+                const tiempo_distancia_total = (nuevo_valor * 0.6 * cantidad_mover)/100
+                
+                let queryUpdate = '', array_argumetos = [];
+
+
+                if(opcion == 1){
+                    queryUpdate = `
+                        UPDATE etapas
+                        SET
+                            numero_picadas = ?,
+                            actividad_minutos_picadas = ?
+                        WHERE
+                            id = ? AND
+                            id_puesto = ? AND
+                            operacion = ?
+                    `;
+                    array_argumetos = [nuevo_valor, actividad_minutos_picadas, id, id_puesto, operacion];
+                } else if(opcion == 2){
+                    queryUpdate = `
+                        UPDATE etapas
+                        SET
+                            distancia_total = ?,
+                            tiempo_distancia_total = ?
+                        WHERE
+                            id = ? AND
+                            id_puesto = ? AND
+                            operacion = ?
+                    `;
+                    array_argumetos = [nuevo_valor, tiempo_distancia_total, id, id_puesto, operacion];
+                }
+                console.log("Query generada:", queryUpdate);
 
                 // Preparamos la consulta para actualizar cada etapa
-                let queryUpdate = `
-                    UPDATE etapas
-                    SET
-                        numero_picadas = ?,
-                        actividad_minutos_picadas = ?
-                    WHERE
-                        id = ? AND
-                        id_puesto = ? AND
-                        operacion = ?
-                `;
+                
 
                 // Ejecutamos la consulta UPDATE para cada etapa individualmente
-                connection.query(queryUpdate, [nuevo_numero_picadas, actividad_minutos_picadas, id, id_puesto, operacion], (updateError, updateResult) => {
-                    console.log('QUERY ACTUALIZAR ETAPA >>>> ', connection.format(queryUpdate, [nuevo_numero_picadas, actividad_minutos_picadas, id, id_puesto, operacion]));
+                connection.query(queryUpdate, array_argumetos, (updateError, updateResult) => {
+                    console.log('QUERY ACTUALIZAR ETAPA >>>> ', connection.format(queryUpdate, array_argumetos));
                     
                     console.log('> RESULTADOS ACTUALIZAR ETAPA: ', updateResult);
 

@@ -1094,7 +1094,7 @@ function generarEtapaGlobal(etapas) {
                             </button>
 
                             <button type="button" class="text-white"
-                                onclick="visualizarEtapa('${nombre_etapa}', '${id_puesto}')">
+                                onclick="editarDistancia('${id_puesto}', '${nombre_etapa}')">
                                 <i class="bi bi-map"></i>
                             </button>
 
@@ -1592,7 +1592,7 @@ function editarEtapa(id_puesto, operacion, num_picadas) {
             numero_picadas = document.getElementById('numeroPicadas').value;
 
             //Preparamos la petición GET para actualizar la etapa
-            fetch(`/film/api/actualizarEtapa/${id_puesto}/${operacion}/${numero_picadas}`, {
+            fetch(`/film/api/actualizarEtapa/${id_puesto}/${operacion}/${numero_picadas}/1`, {
                 method: "PUT"
             })
                 // Controlamos los datos
@@ -1635,48 +1635,6 @@ function ordernarEtapa(array) {
         });
 }
 
-/**
- * Función para disponer el modal general
- * @param {Array} data Argumento que contiene los datos
- */
-function confifurarModal_general(data) {
-    //Configuramos el cuerpo del modal
-    $('#modal .modal-body').html(`
-        <div class="container mx-auto p-4">
-            <div class="mt-6 flex justify-center">
-                <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded" id="botonVisualizarPlano" onclick="visualizarPlano('${puestoID}', '${data[0].id}')">Visualizar plano</button>
-            </div>
-        </div>
-    `);
-
-    //Llamamos a la función para configurar el footer del modal
-    configurarFooterModal_Etapa(data[0].id, data[0].F);
-
-    //Mostramos el modal
-    $('#modal').modal('show');
-}
-
-/**
- * Función para condfigurar los datos de la etapa Colocacion carros manualmente
- * @param {Array} data Argumento que contiene los datos de la etapa
- */
-function configurarModal_colocacionCarrosManualmente(data) {
-    //Configuramos el cuerpo del modal
-    $('#modal .modal-body').html(`
-        <div class="container mx-auto p-4">
-            <div class="mt-6 flex justify-center">
-                <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded" id="botonVisualizarPlano" onclick="visualizarPlano('${puestoID}', '${data[0].id}')">Visualizar plano</button>
-            </div>
-        </div>
-    `);
-
-    //Llamamos a la función para configurar el footer del modal
-    configurarFooterModal_Etapa(data[0].id, data[0].F);
-
-    //Mostramos el modal
-    $('#modal').modal('show');
-}
-
 
 /**
  * Función que actualiza el campo de la velocidad (speed)
@@ -1704,132 +1662,6 @@ function updateSpeedMachine(value) {
     }
 }
 
-/**
- * Función para la etapa F29
- * @param {Array} data Argumemento que contiene los datos de la etapa
- */
-function configurarEtapaF29(data) {
-    //Declaramos las variables necesarias
-    let comentario, distancia_entra_zonas, numero_paquetes_cargados, tipo_carga, cantidad_UC, equipo_utilizado, velocidad_maquina_usada, velocidad, codigo_mtm3, correspondencia, numero_paquetes;
-
-    //Iteramos sobre el array
-    data.forEach(item => {
-        comentario = item.comments;
-        distancia_entra_zonas = item.distance_empty_zone;
-        numero_paquetes_cargados = item.number_of_packages_loaded_at_once;
-        tipo_carga = item.loading_type;
-        equipo_utilizado = item.engins;
-        codigo_mtm3 = item.id_MTM3;
-        correspondencia = item.correspondance;
-    });
-
-    //Llamamos a la función para dar funcionalidad al campo de la velocidad
-    funcionalidadVelocidad();
-
-    /**Añadimos la información a los campos */
-    //Categoria del comentario
-    document.getElementById('comentario').value = comentario;
-
-    //Categoria de los ajustes
-    document.getElementById('distancia').value = distancia_entra_zonas;
-    document.getElementById('numero_paquetes_cargados').value = numero_paquetes_cargados;
-    document.getElementById('tipo_carga').value = tipo_carga;
-
-    //Llamamos a la función para disponer la cantidad de UC por pallet
-    obtenerConteosUM(data[0].referencia_componente);
-
-    //Categoria de las condiciones
-    document.getElementById('maquina_usada').value = equipo_utilizado;
-    document.getElementById('codigo_mtm3').value = codigo_mtm3;
-    document.getElementById('correspondencia').value = correspondencia
-}
-
-/**
- * Función para configurar la etapa F10
- * @param {Array} data Argumento que contiene los datos de la etapa
- */
-function configurarEtapaF10(data) {
-    //Declaramos las variables necesarias
-    let comentario, distancia, numero_bultos, altura_embalaje, almacenamiento_embalaje, cantidad_UC, equipo_utilizado, velociddad_maquina_usada, codigo_mtm3, correspondencia, numero_paquetes, en_pila_de, soporte_embalaje;
-
-    //Iteramos sobre el array
-    data.forEach(item => {
-        comentario = item.comments;
-        distancia = item.distancia;
-        numero_bultos = item.numero_bultos_por_pila;
-        altura_embalaje = item.altura_embalaje;
-        almacenamiento_embalaje = item.almacenamiento_embalajes_mediante;
-        equipo_utilizado = item.engins;
-        codigo_mtm3 = item.code_MTM3;
-        correspondencia = item.correspondance;
-        en_pila_de = item.en_la_tienda_pila;
-        soporte_embalaje = item.soporte_embalaje;
-    });
-
-    //Llamamos a la función para dar funcionalidad al campo de la velocidad
-    funcionalidadVelocidad();
-
-    /**Añadimos la información a los campos */
-    //Categoria de los comentarios
-    document.getElementById('comentario').value = comentario;
-
-    //Categoria de los ajustes
-    document.getElementById('distancia').value = distancia;
-    document.getElementById('numero_bultos').value = numero_bultos;
-    document.getElementById('altura_embalaje').value = altura_embalaje;
-
-    //Llamamos a la función para disponer la cantidad de UC por pallet
-    obtenerConteosUM(data[0].referencia_componente);
-
-    //Categoria de las condiciones
-    document.getElementById('maquina_usada').value = equipo_utilizado;
-    document.getElementById('codigo_mtm3').value = codigo_mtm3;
-    document.getElementById('correspondencia').value = correspondencia;
-    document.getElementById('en_pila_de').value = en_pila_de;
-    document.getElementById('soporte_embalaje').value = soporte_embalaje;
-}
-
-/**
- * Función para configurar la etapa F5
- * @param {Array} data Argumento que contiene los datos de la etapa
- */
-function configurarEtapaF5(data) {
-    //Declaramos las variables necesarias
-    let comentario, distancia, acceso_camion, empaque_descargado, codigo_mtm3, cantidad_UC, equipo_utilizado, velocidad_maquina_usada, velocidad, correspondencia, numero_paquetes;
-
-    //Iteramos por el array de los datos
-    data.forEach(item => {
-        id_etapa = item.id;
-        distancia = item.distancia_F5;
-        comentario = item.comments;
-        acceso_camion = item.acceso_al_camion_F5;
-        empaque_descargado = item.embalaje_descargado_F5;
-        equipo_utilizado = item.engins;
-        codigo_mtm3 = item.id_MTM3;
-        correspondencia = item.correspondance;
-    });
-
-    //Llamamos a la función par dar funcionalidad al campo de la velocidad
-    funcionalidadVelocidad();
-
-    /**Añadimos la información a los campos */
-    //Categoria del comentario
-    document.getElementById('comentario').value = comentario;
-    document.getElementById('distancia').value = distancia;
-
-    //Categoria de los ajustes
-    document.getElementById('acceso_camion').value = acceso_camion;
-    document.getElementById('empaque_descargado').value = empaque_descargado;
-
-
-    //Categoria de las condiciones
-    document.getElementById('maquina_usada').value = equipo_utilizado;
-    document.getElementById('codigo_mtm3').value = codigo_mtm3;
-    document.getElementById('correspondencia').value = correspondencia;
-
-    //Llamamos a la función para disponer la cantidad de UC por pallet
-    obtenerConteosUM(data[0].referencia_componente);
-}
 
 /**
  * Función para dar la funcionalidad al campo de la máquina usada en la velocidad 
@@ -1940,65 +1772,6 @@ function inicializarVariablesEtapas(etapaDeF) {
     return { referenciaComponente, id_etapa, nombre_etapa, distancia_total, PS14, DS10, CDL, M1, DC113, CDC, PS15, DI21, DS14, DS15, DC, D1, W5, W5_2, TT, TT_2, AL, G1, P5, num_picadas, actividad_minutos, actividad_minutos_picadas, tiempo_distancia_total };
 }
 
-/**
- * Función para disponer el modal de staturación de la UAT
- */
-function visualizarInformeStaturacionUAT() { /** PONER BIEN LAS FECHAS */
-    //Mostramos el modal antes de añadir el gráfico
-    $('#modalInforme').fadeIn(() => {
-        //Creamos una instancia del contenedor del gráfico
-        const grafico_principal = document.getElementById('modal-grafico-container');
-        grafico_principal.innerHTML = '';
-
-        //Creamos el lienzo para el gráfico
-        const canvas = document.createElement('canvas');
-        grafico_principal.appendChild(canvas);
-
-        //Llamamos a la función para establecer las fechas dentro del gráfico
-        obtenerTomaDatos(grafico_principal);
-
-        //Calculamos la saturación total
-        const saturacionTotal = calcularSaturacionTotal(conteosPorPuesto);
-
-        //Creamos el gráfico
-        new Chart(canvas, {
-            type: 'pie',
-            data: {
-                labels: ['Saturación Total', 'Tiempo Libre'],
-                datasets: [{
-                    data: [saturacionTotal, (100 - saturacionTotal)],
-                    backgroundColor: ['rgba(75, 192, 192, 0.8)', 'rgba(211, 211, 211, 0.5)'],
-                    hoverBackgroundColor: ['rgba(75, 192, 192, 1)', 'rgba(211, 211, 211, 0.7)'],
-                    borderWidth: 2,
-                    borderColor: '#ffffff'
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    title: {
-                        display: true,
-                        text: 'Saturación Total de Todos los Puestos',
-                        color: '#ffffff',
-                    },
-                    tooltip: {
-                        callbacks: {
-                            label: function (context) {
-                                return `${context.label}: ${context.raw}%`;
-                            }
-                        }
-                    },
-                    legend: {
-                        labels: {
-                            color: '#ffffff'
-                        }
-                    },
-                }
-            }
-        });
-    });
-}
 
 /**
  * Función para calcular la saturación total de todos los puestos
@@ -2827,11 +2600,70 @@ function mostrarAlerta(titulo, mensaje, icono, opcion) {
  * @param {String} referencia_componente Argumento que contiene la referencia del componenten
  * @param {int} puesto_id Argumento que contiene el ID del puesto
  */
-function visualizarEtapa(etapa_nombre, puesto_id) {
-    //Configuramos el título de la etapa
-    $('#modalLargeTitle').text('Información de la etapa ', etapa_nombre);
+function editarDistancia(id_puesto, operacion) {
+    if (id_puesto === '' || id_puesto === null) {
+        //Llamamos al método para mostrar una alerta de aviso
+        mostrarAlerta('Error al mostrar el moda de añadir etapa', 'Debes de seleccionar un puesto antes de añadir una etapa', 'error', 0);
 
-    //visualizarPlano(puesto_id, etapa_nombre);
+        //En cualquier otro caso...
+    } else {
+        //Configuramos el titulo del modal
+        $('#modal .modal-title').text(`Editar etapa`);
+
+        //Configuramos el cuerpo del modal para que el usuario introduzca el referencia del componente y la línea
+        $('#modal .modal-body').html(`
+            <form id="actualizarEtapa" method="GET">
+                <!--Distancia -->
+                <div class="relative inline-block w-full mb-4">
+                    <label for="distancia" class="block text-sm font-medium text-white mb-2">Introduzca la distancia a recorrer por el carretillero</label>
+                    <input  id="distancia" name="distancia" class="block w-full pl-3 pr-10 py-2 text-base border-gray-600 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md bg-white text-white" placeholder="Distancia a recorrer" required>
+                </div>
+
+
+                <!-- Botón actualizar -->
+                <div class="mt-6">
+                    <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-500 transition duration-300">Actualizar etapa</button>
+                </div>
+            </form>
+        `);
+
+        //Ocultamos el footer del modal
+        $('#modal .modal-footer').html('');
+
+        $('#modal .modal-dialog').css('max-width', '450px');
+
+        //Mostramos el modal
+        $('#modal').modal('show');
+    
+
+        $('#actualizarEtapa').on('submit', async function (e) {
+            //Paramos la propagación
+            e.preventDefault();
+
+            //Almacenamos en una variable el número de picadas
+            numero_picadas = document.getElementById('distancia').value;
+            console.log("Distancia: ", operacion)
+
+            //Preparamos la petición GET para actualizar la etapa
+            fetch(`/film/api/actualizarEtapa/${id_puesto}/${operacion}/${numero_picadas}/2`, {
+                method: "PUT"
+            })
+                // Controlamos los datos
+                .then(response => {
+                    if (response.status === 200) {
+                        mostrarAlerta('Etapas actualizadas correctamente', null, null, 1);
+                    } else {
+                        mostrarAlerta('Error', 'Ha fallado', 'error', 0);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error en la solicitud:', error);
+                    mostrarAlerta('Error', 'No se pudo conectar al servidor', 'error', 0);
+                });
+        });
+    }
+
+    
 }
 
 /**
@@ -2891,26 +2723,6 @@ function controlarRespuesta_Etapa(response) {
     }
 }
 
-/**
- * Función para abrir el plano en una nueva pestaña
- * @param {int} puesto_id Argumento que contiene el ID del puesto
- * @param {String} etapa_nombre Argumento que contiene el nombre de la etapa
- */
-function visualizarPlano(puesto_id, etapa_nombre) {
-    //Creamos un array con los datos que tenemos que enviar
-    const rowData = [
-        puesto_id,
-        etapa_nombre
-    ];
-
-    console.log(rowData)
-
-    //Convertimos el array a JSON
-    const rowDataJson = encodeURIComponent(JSON.stringify(rowData));
-
-    //Abrimos la página del plano en una nueva pestaña
-    window.open(`/film/visualizarPlano?data=${rowDataJson}`, '_blank');
-}
 
 /***
  * Función para llamar al end point para eliminar el registro
