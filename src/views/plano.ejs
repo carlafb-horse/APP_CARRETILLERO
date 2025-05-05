@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dibuja sobre el plano</title>
+
+    <!--INLUCIMOS LA CABECERA-->
+    <%- include('partials/head.ejs') %>
+</head>
+
+<body class="bg-gray-100 flex items-center justify-center p-4">
+
+    <div class="bg-white shadow-md rounded-lg p-6 w-full max-w-7xl">
+        <h1 class="text-2xl font-bold text-center mb-4">Dibuja sobre el plano</h1>
+
+        <canvas id="planoCanvas" class="w-full h-96 mb-4 rotate-90"></canvas>
+
+        <div class="flex flex-col mt-4 space-y-4">
+            <div class="bg-blue-100 border border-blue-300 text-blue-800 rounded-lg shadow-md p-4">
+                <h2 class="font-semibold text-lg">Distancia Total</h2>
+                <p id="distanciaTotalMetros" class="text-2xl font-bold">0 metros</p>
+            </div>
+
+            <div class="bg-green-100 border border-green-300 text-green-800 rounded-lg shadow-md p-4">
+                <h2 class="font-semibold text-lg">Número de Curvas</h2>
+                <p id="numeroCurvas" class="text-2xl font-bold">0</p>
+            </div>
+
+            <div class="flex space-x-4">
+                <div class="bg-red-100 border border-red-300 text-red-800 rounded-lg shadow-md p-4 w-1/2">
+                    <h2 class="font-semibold text-lg">Número de Cruces</h2>
+                    <input type="number" id="numeroCruces" value="0" min="0"
+                        class="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-base focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                </div>
+
+                <div class="bg-red-100 border border-red-300 text-red-800 rounded-lg shadow-md p-4 w-1/2">
+                    <h2 class="font-semibold text-lg">Número de Puertas</h2>
+                    <input type="number" id="numeroPuertas" value="0" min="0"
+                        class="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-base focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                </div>
+
+                <div class="bg-yellow-100 border border-yellow-300 text-red-800 rounded-lg shadow-md p-4 w-1/2"
+                    style="display: none;" id="contenedorFrecuenciaRecorrido">
+                    <h2 class="font-semibold text-lg">Frecuencia del recorrido</h2>
+                    <input type="number" id="frecuenciaRecorrido" value="0" min="0"
+                        class="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-base focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                </div>
+            </div>
+
+            <div class="flex space-x-4">
+                <div class="bg-yellow-100 border border-yellow-300 text-red-800 rounded-lg shadow-md p-4 w-1/2"
+                    id="contenedorMaquinaUsada" style="display: none;">
+                    <h2 class="font-semibold text-lg">Máquina usada</h2>
+                    <select id="maquinaUsada" name="maquinaUsada"
+                        class="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-base focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <option value="Carretilla elevadora eléctrica acompañada">Carretilla elevadora eléctrica
+                            acompañada</option>
+                        <option value="Carretilla elevadora eléctrica con conductor sentado">Carretilla elevadora
+                            eléctrica con conductor sentado</option>
+                        <option value="Carretilla elevadora eléctrica con apilador acompañante">Carretilla elevadora
+                            eléctrica con apilador acompañante</option>
+                        <option value="Apilador eléctrico delantero">Apilador eléctrico delantero</option>
+                        <option value="Apilador eléctrico con mástil retráctil">Apilador eléctrico con mástil retráctil
+                        </option>
+                        <option value="Apilador térmico delantero">Apilador térmico delantero</option>
+                        <option value="Tractor eléctrico de 200 a 500 daN">Tractor eléctrico de 200 a 500 daN</option>
+                        <option value="Tractor eléctrico de 1500 daN">Tractor eléctrico de 1500 daN</option>
+                        <option value="Tractor térmico (agrícola)">Tractor térmico (agrícola)</option>
+                        <option value="Ninguno">Ninguno</option>
+                    </select>
+                </div>
+
+                <div class="bg-yellow-100 border border-yellow-300 text-red-800 rounded-lg shadow-md p-4 w-1/2"
+                    id="contenedorVelocidad" style="display: none;">
+                    <h2 class="font-semibold text-lg">Velocidad</h2>
+                    <select id="velocidad" name="velocidad"
+                        class="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-base focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <option value="10">10 km/h</option>
+                        <option value="12">12 km/h</option>
+                        <option value="15">15 km/h</option>
+                        <option value="20">20 km/h</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="bg-yellow-100 border border-yellow-300 text-red-800 rounded-lg shadow-md p-4 w-1/2"
+                id="contenedorVelocidad" style="display: none;">
+                <h2 class="font-semibold text-lg">Velocidad</h2>
+                <select id="velocidad" name="velocidad"
+                    class="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-base focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <option value="10">10 km/h</option>
+                    <option value="12">12 km/h</option>
+                    <option value="15">15 km/h</option>
+                    <option value="20">20 km/h</option>
+                </select>
+            </div>
+
+            <div class="bg-yellow-100 border border-yellow-300 text-red-800 rounded-lg shadow-md p-4 w-full" id="contenedorDescripcion" style="display: none;">
+                <h2 class="font-semibold text-lg">Descripción</h2>
+                <input id="descripcion" name="descripcion" type="text"
+                    class="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-base focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    required>
+            </div>
+
+            <button id="botonActualizarInformacionPlano"
+                onclick="mostrarAlertaMapa('Actualización de la información del mapa', '¿Deseas actualizar la información?', 'warning', 1)"
+                class="bg-[#2563eb] text-black font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-blue-700 transition duration-300 ease-in-out">
+                Actualizar
+            </button>
+        </div>
+
+    </div>
+
+    <script src="/script/film/plano.js"></script>
+</body>
+
+</html>

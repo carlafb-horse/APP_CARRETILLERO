@@ -1,0 +1,493 @@
+<div class="modal fade" id="modalInformeFinal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-xl">
+        <div class="modal-content bg-dark text-white rounded-lg">
+            <!-- Modal Header -->
+            <div class="modal-header border-secondary">
+                <h5 class="modal-title">Datos obtenidos</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="modal-body">
+                <div class="container">
+                    <h4 class="mb-4">Tipo de operacion</h4>
+                    <div class="table-container overflow-x-auto">
+                        <table class="min-w-full bg-dark border border-secondary rounded-lg shadow-md">
+                            <thead>
+                                <tr class="bg-secondary">
+                                    <td>Referencia del componente</td>
+                                    <td>Tipo de carga</td>
+                                    <td>Valor de carga</td>
+                                    <td>Cantidad a expedir</td>
+                                    <td>Número de embalajes</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="modal-footer border-secondary">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-outline-light" onclick="mostrarModalEtapas()">Continuar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--MODAL PARA EL INFORME-->
+<div id="modalInformeFinal2" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50"
+    style="display: none;">
+    <div class="bg-gray-800 text-white rounded-lg p-6 w-1/3">
+        <h2 id="modalTitle" class="text-xl font-bold mb-4">Datos obtenidos</h2>
+        <div class="modal-body">
+            <div class="container">
+                <h4 style="display: flex; align-items: center;">Tipo de operacion</h4>
+                <div class="table-container overflow-x-auto">
+                    <table class="min-w-full bg-gray-800 border border-gray-300 rounded-lg shadow-md">
+                        <thead>
+                            <tr class="bg-gray-700">
+                                <td>Referencia del componente</td>
+                                <td>Tipo de carga</td>
+                                <td>Valor de carga</td>
+                                <td>Cantidad a expedir</td>
+                                <td>Número de embalajes</td>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="mt-4 flex justify-end modal-footer">
+            <button id="closeModal" onclick="cerrarModalInforme()"
+                class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-500">Cerrar</button>
+            <button onclick="mostrarModalEtapas()"
+                class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-500">Continuar</button>
+        </div>
+    </div>
+</div>
+
+<!--MODAL PARA EL SELECTOR DE LA PLANTA-->
+<div id="modalPlanta" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50"
+    style="display: none;">
+    <div class="bg-gray-800 text-white rounded-lg p-6 w-1/3">
+        <h2 id="modalTitle" class="text-xl font-bold mb-4">Seleccione una planta</h2>
+        <div class="modal-body">
+            <div class="relative inline-block w-64">
+                <label for="planta" class="block text-sm font-medium text-white mb-2">Seleccione una planta</label>
+                <select id="planta" name="planta"
+                    class="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md bg-gray-700 text-white">
+                    <option value="00900165">Aveiro</option>
+                    <option value="00910175">Sevilla</option>
+                    <option value="00910177">Valladolid</option>
+                    <option value="00900095">Chile</option>
+                    <option value="00900123">HORSE ROBV</option>
+                    <option value="00900125">Motores</option>
+                    <option value="00900144">Oyak</option>
+                    <option value="00900186">Brasil</option>
+                </select>
+            </div>
+        </div>
+        <div class="mt-4 flex justify-end modal-footer">
+            <button class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-500"
+                onclick="establecerPlanta()">Continuar</button>
+        </div>
+    </div>
+</div>
+
+<!--MODAL PARA LA INFORMACIÓN OBTENIDA DE LOS COMPONENTES-->
+<div id="modalLarge" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50"
+    style="display: none;">
+    <div class="bg-gray-800 text-white rounded-lg p-6 w-3/4 max-w-6xl flex flex-col"
+        style="height: 90vh; max-height: 90vh;">
+        <h2 id="modalLargeTitle" class="text-2xl font-bold mb-4">Título del Modal Grande</h2>
+        <div class="modal-body flex-grow overflow-auto">
+
+        </div>
+        <div class="mt-4 flex justify-end modal-footer">
+            <button id="botonSelectorEtapas" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-500">Selector
+                de etapas</button>
+            <button id="closeModalLarge"
+                class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-500">Cerrar</button>
+        </div>
+    </div>
+</div>
+
+<!--MODAL PARA LA VISUALIZACIÓN DE LA SATURACIÓN TOTAL-->
+<div id="modalInforme" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50"
+    style="display: none;">
+    <div class="bg-gray-800 text-white rounded-lg p-6 w-3/4 max-w-6xl flex flex-col"
+        style="height: 90vh; max-height: 90vh;">
+        <h2 id="modalInformeTitle" class="text-2xl font-bold mb-4">Reporte de Saturación Total UAT</h2>
+
+        <div id="modal-grafico-container" class="flex justify-center items-center mb-4" style="min-height: 50vh;">
+
+        </div>
+
+        <div class="mt-4 flex justify-end">
+            <button id="closeModalLarge" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-500"
+                onclick="cerrarModal()">
+                Cerrar
+            </button>
+        </div>
+    </div>
+</div>
+
+<!--MODAL PARA LA VISUALIZACIÓN DE LOS PUESTOS DE FORMA DETALLADA -->
+<div class="modal fade" id="modalDetalle" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-xl">
+        <div class="modal-content bg-gray-800 text-white">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" style="color: white;">Modal title</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" style="color: white;">
+                ...
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--MODAL PARA LA DISPOSICIÓN DE LOS GRÁFICOS A CUATRO SEMANAS POR PUESTO-->
+<div id="informe-detallado" tabindex="-1" aria-hidden="true"
+    class="hidden overflow-y-auto overflow-x-hidden fixed inset-0 z-50 flex justify-center items-center w-full h-full">
+    <div class="relative p-4 w-full max-w-7xl h-full">
+        <!-- Modal content -->
+        <div class="relative bg-gray-800 text-white rounded-lg shadow dark:bg-gray-700 w-full h-full">
+            <!-- Modal header -->
+            <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                <h3 class="text-xl font-semibold text-white dark:text-white" id="title-modal">
+                    Informe a cuatro semanas
+                </h3>
+                <button id="close-modal-btn" type="button"
+                    class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white">
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                    </svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+            </div>
+            <!-- Modal body -->
+            <div class="p-4 md:p-5 space-y-4 grid grid-cols-5 gap-4" id="body-modal">
+
+                <!-- <div class="bg-gray-700 dark:bg-gray-600 rounded-lg p-4">Gráfico 1</div>
+                <div class="bg-gray-700 dark:bg-gray-600 rounded-lg p-4">Gráfico 2</div>
+                <div class="bg-gray-700 dark:bg-gray-600 rounded-lg p-4">Gráfico 3</div>
+                <div class="bg-gray-700 dark:bg-gray-600 rounded-lg p-4">Gráfico 4</div>
+                <div class="bg-gray-700 dark:bg-gray-600 rounded-lg p-4">Gráfico 5</div>
+                <div class="bg-gray-700 dark:bg-gray-600 rounded-lg p-4">Gráfico 6</div>
+                <div class="bg-gray-700 dark:bg-gray-600 rounded-lg p-4">Gráfico 7</div>
+                <div class="bg-gray-700 dark:bg-gray-600 rounded-lg p-4">Gráfico 8</div>
+                <div class="bg-gray-700 dark:bg-gray-600 rounded-lg p-4">Gráfico 9</div>
+                <div class="bg-gray-700 dark:bg-gray-600 rounded-lg p-4">Gráfico 10</div>
+                <div class="bg-gray-700 dark:bg-gray-600 rounded-lg p-4">Gráfico 11</div>
+                <div class="bg-gray-700 dark:bg-gray-600 rounded-lg p-4">Gráfico 12</div>
+                <div class="bg-gray-700 dark:bg-gray-600 rounded-lg p-4">Gráfico 13</div>
+                <div class="bg-gray-700 dark:bg-gray-600 rounded-lg p-4">Gráfico 14</div>
+                <div class="bg-gray-700 dark:bg-gray-600 rounded-lg p-4">Gráfico 15</div>
+                <div class="bg-gray-700 dark:bg-gray-600 rounded-lg p-4">Gráfico 16</div>
+                <div class="bg-gray-700 dark:bg-gray-600 rounded-lg p-4">Gráfico 17</div>
+                <div class="bg-gray-700 dark:bg-gray-600 rounded-lg p-4">Gráfico 18</div>
+                <div class="bg-gray-700 dark:bg-gray-600 rounded-lg p-4">Gráfico 19</div>
+                <div class="bg-gray-700 dark:bg-gray-600 rounded-lg p-4">Gráfico 20</div> -->
+
+                <!-- <div class="mb-4">
+                    <label for="fecha" class="block text-white font-bold mb-2">Fecha:</label>
+                    <input type="date" id="fecha" name="fecha" class="w-full p-2 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white text-white" placeholder="Ingresa la fecha para realizar la búsqueda" required>
+                </div> -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MAIN MODAL (Bootstrap) -->
+<div class="modal fade" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-xl">
+        <div class="modal-content bg-dark text-white rounded-lg">
+            <!-- Modal Header -->
+            <div class="modal-header border-secondary">
+                <h5 class="modal-title">Título del Modal</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="modal-body" id="modal-body">
+                ...
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="modal-footer border-secondary">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-outline-light" data-bs-target="#modalConfirmDelete"
+                    data-bs-toggle="modal" id="deleteButtonMainModal">Eliminar</button>
+                <button type="button" class="btn btn-primary" id="updateRow">Actualizar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    //Creamos una variable donde contenga la información de la categoria y de las opciones
+    const operaciones = {
+        descarga_carga: [
+            { value: "F2", text: "Descarga en el muelle" },
+            { value: "F4", text: "Descarga marítima en el muelle" },
+            { value: "F5", text: "Descarga en zona plana" },
+            { value: "F6", text: "Desapilado de UM (Unidades de Manejo)" },
+            { value: "F7", text: "Control / validación de recepción" },
+            { value: "F8", text: "Reetiquetado de UM (Unidades de Manejo)" },
+            { value: "F9", text: "Desembalaje CKD (Completamente desarmado)" },
+            { value: "F29", text: "Carga de embalaje vacío" },
+            { value: "F45", text: "Preparación de imagen del camión antes de la carga" },
+            { value: "F46", text: "Carga para envío" },
+        ],
+        compras: [
+            { value: "F10", text: "Almacenamiento de UM en el suelo en pilas" },
+            { value: "F11", text: "Almacenamiento de MU en palets" },
+            { value: "F30", text: "Almacenamiento de CPU en CPL2" },
+            { value: "F12", text: "Almacenamiento de CPU en el suelo en pilas" },
+            { value: "F13", text: "Almacenamiento de CPU en gravedad" },
+            { value: "F36", text: "Eliminación de UC de TPF en un área dedicada" }
+        ],
+        preparacion: [
+            { value: "F14", text: "Carga sostenible de GE en BR" },
+            { value: "F15", text: "Carga de GE perdida en BR" },
+            { value: "F16", text: "Carga de pales en BR" },
+            { value: "F34", text: "Conexión entre edificios mediante remolque" },
+            { value: "F3", text: "Cargando CPL2 en BR" },
+            { value: "F17", text: "Preparación PE CPL1 / CPL1 EN BR" },
+            { value: "F37", text: "Instalación de PE TPF en BR" },
+            { value: "F38", text: "Preparación de PE en cestya desde palet" },
+            { value: "F41", text: "Carga de pales PPA en BR" },
+            { value: "F18", text: "Reposición nivel 0 desde paletización" },
+            { value: "F32", text: "Carga de mensajería unificada en remolque" },
+            { value: "F33", text: "Descarga de remolque" },
+            { value: "F19", text: "Rebastecimiento de nievl 0 desde el almacenamiento en ell suelo" }
+        ],
+        gestion_de_vacios_y_residuos: [
+            { value: "F24", text: "Evacuación de GE vacío" },
+            { value: "F25", text: "Eliminación de contene,dore de basura" },
+            { value: "F39", text: "Colección de cajas" },
+            { value: "F26", text: "Limpiar/plegar GE vacios" },
+            { value: "F31", text: "Almacenamiento de PE vacios" },
+            { value: "F27", text: "Descarga y almacenamiento de GE vacios" },
+            { value: "F28", text: "Descarga y almacenamiento de embalajes perdidos" }
+        ],
+        operaciones_manuales: [
+            { value: "Coger UC/UM y dejar en stock altura media", text: "Coger UC/UM y dejar en stock altura media" },
+            { value: "Coger bac y colocar en carro/estanteria", text: "Coger bac y colocar en carro/estanteria" },
+            { value: "Carga cassette nacelle J 22 bacs", text: "Carga cassette nacelle J 22 bacs" },
+            { value: "Colocacion carros manualmente", text: "Colocacion carros manualmente" },
+            { value: "Descarga muelle a imagen (UM)", text: "Descarga muelle a imagen (UM)" },
+            { value: "2. De imagen camión a stock (UM)", text: "2. De imagen camión a stock (UM)" },
+            { value: "De imagen camión a muelle (UM)", text: "De imagen camión a muelle (UM)" },
+            { value: "3. De stock a estantería (UM)", text: "3. De stock a estantería (UM)" },
+            { value: "De stock a imagen camion (UM)", text: "De stock a imagen camion (UM)" },
+            { value: "4. De imagen camión a estantería (UM)", text: "4. De imagen camión a estantería (UM)" },
+            { value: "5. De estantería a puesto inferior (UM)", text: "5. De estantería a puesto inferior (UM)" },
+            { value: "6. Gestión de residuos (UM)", text: "6. Gestión de residuos (UM)" },
+            { value: "Documentacion camión (UM)", text: "Documentacion camión (UM)" },
+            { value: "8. Zipado (UM)", text: "8. Zipado (UM)" },
+            { value: "7. Apertura (UM)", text: "7. Apertura (UM)" },
+            { value: "Plegar y apilar (UC)", text: "Plegar y apilar (UC)" },
+            { value: "De puesto inferior a carro (UC)", text: "De puesto inferior a carro (UC)" },
+            { value: "Nacelle 30 bacs (UC)", text: "Nacelle 30 bacs (UC)" },
+            { value: "Nacelle 60 bacs (UC)", text: "Nacelle 60 bacs (UC)" },
+            { value: "9. Plegado de vacíos (UM)", text: "9. Plegado de vacíos (UM)" },
+            { value: "De stock a carro (UM)", text: "De stock a carro (UM)" },
+            { value: "De carro a stock (UM)", text: "De carro a stock (UM)" },
+            { value: "10. De stock exterior a stock interior (UM)", text: "10. De stock exterior a stock interior (UM)" },
+            { value: "Gestión UMs bacs vacíos (UC)", text: "Gestión UMs bacs vacíos (UC)" },
+            { value: "8. Zipado bacs (UM)", text: "8. Zipado bacs (UM)" },
+            { value: "De carro a estantería (UC)", text: "De carro a estantería (UC)" },
+            { value: "Cambio de UM en puesto (UM)", text: "Cambio de UM en puesto (UM)" },
+            { value: "Nacelle 38 bacs (UC)", text: "Nacelle 38 bacs (UC)" },
+            { value: "Nacelle 34 bacs (UC)", text: "Nacelle 34 bacs (UC)" }
+        ]
+    };
+
+    //Configuramos el botón de cerrar del "modalLarge"
+    $('#closeModalLarge').on('click', function () {
+        //Cerramos el modal
+        $('#modalLarge').fadeOut();
+    });
+
+    //Configuramos la funcionalidad del botón del selector de etapas
+    $('#botonSelectorEtapas').on('click', function () {
+        //Cerramos el modal largo
+        $('#modalLarge').fadeOut();
+
+        //Configuramos el título del modal que contendrá las etapas
+        $('#modalTitle').text("Selecciona una etapa");
+
+        //Configuramos el cuerpo del modal que contendrá las etapas
+        $('.modal-body').html(`
+            <form id="formulario_anyadirEtapa" method="POST">
+                <!-- Referencia del componente -->
+                <div class="mb-4">
+                    <label for="referencia_componente" class="block text-gray-700 font-bold mb-2">Referencia del componente:</label>
+                    <input type="text" id="referencia_componente" name="referencia_componente" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" value="${referencia_componente}" disabled>
+                </div>
+
+                <!-- Categorias de las etapas -->
+                <div class="relative inline-block w-64">
+                    <label for="categoria" class="block text-sm font-medium text-gray-700 mb-2">Selecciona una categoría</label>
+                    <select id="categoria" name="categoria" class="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
+                        <option value="descarga_carga">DESCARGA/CARGA</option>
+                        <option value="compras">COMPRAS</option>
+                        <option value="preparacion">PREPARACIÓN</option>
+                        <option value="distribucion">DISTRIBUCIÓN</option>
+                        <option value="varios">VARIOS</option>
+                        <option value="gestion_de_vacios_y_residuos">GESTIÓN DE VACÍOS Y RESIDUOS</option>
+                        <option value="operaciones_manuales">OPERACIONES MANUALES</option>
+                    </select>
+                </div>
+
+                <!-- Operacion de la categoria -->
+                <div class="relative inline-block w-64">
+                    <label for="operacion" class="block text-sm font-medium text-gray-700 mb-2">Selecciona una operación</label>
+                    <select id="operacion" name="operacion" class="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
+
+                    </select>
+                </div>
+
+                <!-- Botón de continuar -->
+                <div class="mt-6">
+                    <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-500 transition duration-300">Continuar</button>
+                </div>
+            </form>
+        `);
+
+        //Añadimos la funcionalidad para el dropdown de la categoria cada vez que cambie
+        document.getElementById('categoria').addEventListener('change', actualizarOperacion);
+
+        //Llamamos al método para inicializar los dropdown
+        actualizarOperacion();
+
+        //Añdiamos la funcionalidad para el dropdown de la categoria
+        $('#categoria').on('change', function () {
+            //Almacenamos la categoria seleccionada
+            categoria_seleccionada = $(this).val();
+            console.log("Categoria seleccionada: ", categoria_seleccionada);
+
+            //Creamos una instancia el dropdown de las operaciones
+            const dropdown_operaciones = $('#operacion');
+
+            //Limpiamos las operaciones
+            dropdown_operaciones.empty();
+
+            //Hacemos un match para obtener las operaciones de la categoria
+            if (categoria_seleccionada) {
+                operaciones[categoria_seleccionada].forEach(function (op) {
+                    dropdown_operaciones.append(`<option value="${op.value}">${op.text}</option>`);
+                });
+            }
+        });
+
+        //Añadimos la operación cada vez que se seleccione una operación
+        $('#operacion').on('change', function () {
+            //Almacenamos la operación seleccionada
+            operacion_seleccionada = $(this).val();
+            console.log("Operación seleccionada: ", operacion_seleccionada);
+        });
+
+        //Mostramos el modal que contiene la referencia del componente y las etapas
+        $('#modal').fadeIn();
+
+        //Añadimos la funcionalidad del formulario para añadir la etapa
+        $('#formulario_anyadirEtapa').on('submit', function (e) {
+            //Paramos la propagación
+            e.preventDefault();
+
+            //En caso de que el campo mote este vacio
+            if (typeof mote === "string" && mote.trim() === '') {
+                //Le asignamos NULL
+                mote = null;
+            }
+
+            //Iniciamos la solicitud POST
+            fetch(`/film/api/anyadirEtapa/${puestoID}/${referencia_componente}/${linea}/${operacion_seleccionada}/${cantidad_a_mover_cadena}/${mote}`, {
+                method: "POST"
+            })
+                //Controlamos la respuesta
+                .then(response => {
+                    //En caso de que todo haya salido bien
+                    if (response.status === 201) {
+                        mostrarAlerta("Etapa creada", null, null, 1);
+
+                        //En caso de error
+                    } else if (response.status === 400) {
+                        mostrarAlerta("Error en la creación de la etapa", "Se ha producido un error a la hora de crear la etapa", "error", 0);
+
+                        //Otros casos no controlados
+                    } else {
+                        mostrarAlerta("Estado no controlado", "No se ha sido capaz de controlar el estado de la creación de la etapa", "question", null);
+                    }
+                })
+        });
+    });
+
+    /**
+     * Función para actualizar las etapas
+     * */
+    function actualizarOperacion() {
+        //Obtenemos una instancia de la categoria 
+        const categoriaSelect = document.getElementById('categoria');
+
+        //Obtenemos una instancia de la operación
+        const operacionSelect = document.getElementById('operacion');
+
+        //Obtenemos el valor de la categoría seleccionada
+        const selectedCategoria = categoriaSelect.value;
+
+        //Limpiamos el select de operaciones antes de agregar nuevas opciones
+        operacionSelect.innerHTML = '';
+
+        //Verificamos si la categoría tiene operaciones definidas
+        if (operaciones[selectedCategoria]) {
+            operaciones[selectedCategoria].forEach(operacion => {
+                const option = document.createElement('option');
+                option.value = operacion.value;
+                option.textContent = operacion.text;
+                operacionSelect.appendChild(option);
+            });
+
+            //Seleccionamos automáticamente la primera opción y disparamos el evento
+            operacionSelect.selectedIndex = 0;
+            operacionSelect.dispatchEvent(new Event('change'));
+        }
+    }
+
+    /**
+     * Función para cerrar el modal
+     * */
+    function cerrarModal() {
+        //Cerramos el modal
+        $('#modalInforme').fadeOut();
+    }
+
+    /**
+     * Función para cerrar el modal del infome final
+     * */
+    function cerrarModalInforme() {
+        //Cerramos el modal
+        $('#modalInformeFinal').fadeOut();
+    }
+
+    //Funcionalidad para el botón de cerrar del modal del informe detallado del puesto
+    document.getElementById('close-modal-btn').addEventListener('click', function () {
+        $('#informe-detallado').fadeOut();
+    });
+</script>

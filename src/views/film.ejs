@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APP CARRETILLERO</title>
+    <script src="/script/film.js"></script>
+    <link href="/css/style.css" rel="stylesheet">
+    
+
+    <!--INCLUIMOS LA CABECERA-->
+    <%- include('partials/head.ejs') %>
+
+</head>
+
+<body class="h-screen bg-gray-800 text-white">
+    <!--INCLUDE THE MODAL-->
+    <%- include('partials/modal.ejs') %>
+
+        <div class="flex h-screen">
+            <!-- Panel lateral izquierdo -->
+            <div
+            class="bg-[#212f4d] text-white p-6 rounded-lg shadow-lg flex flex-col items-center space-y-6 animate-slideInLeft"
+            style="max-width: 480px !important; width: 400px !important;">
+            <h2 class="text-2xl font-semibold tracking-wider mb-6 border-b-2 border-gray-600 pb-2">Panel de opciones</h2>
+                <!-- Botón para mostrar la planta seleccionada -->
+                <button id="plantaSeleccionada"
+                    class="flex items-center w-full justify-center bg-[#1f2937] hover:bg-[#4a6b8c] text-white font-semibold py-3 px-6 rounded-lg shadow-lg transform transition duration-300 hover:scale-110 hover:shadow-2xl space-x-3 animate-fadeInFromLeft focus:outline-none focus:ring-2 focus:ring-[#1f2937] focus:ring-opacity-50">
+                </button>
+
+                <!-- Contenedor para visualizar la leyenda de colores -->
+                <div id="visualizarLeyenda"
+                    class="w-full justify-center bg-[#1f2937] hover:bg-[#4a6b8c] text-white font-semibold py-3 px-4 rounded-lg shadow-md transform transition duration-300 hover:scale-105 hover:shadow-lg space-x-2 animate-fadeInFromLeft">
+                    <div>Leyenda colores distancia <i class="bi bi-tags"></i>
+                        <hr>
+                    </div>
+                    <div class="item_leyenda">
+                        <div class="color_leyenda" style="background-color: #6ee7b7;"></div>
+                        <span>De 0 a 49 metros</span>
+                    </div>
+                    <div class="item_leyenda">
+                        <div class="color_leyenda" style="background-color: #fcd34d;"></div>
+                        <span>De 50 a 99 metros</span>
+                    </div>
+                    <div class="item_leyenda">
+                        <div class="color_leyenda" style="background-color: #fca5a5;"></div>
+                        <span>100 o más metros</span>
+                    </div>
+                </div>
+
+                <!-- Contenedor para visualizar el turno de la etapa -->
+                <div id="visualizarTurno"
+                    class="bg-[#1f2937] p-4 rounded-lg shadow-md space-y-4 max-w-[300px] hidden animate-fadeInFromLeft animate-delay-200">
+                    <h3 id="jornadaLaboralTitle" class="text-[14px] font-semibold text-center text-white">Jornada
+                        Laboral</h3>
+                    <div class="flex justify-between text-white text-[14px] font-bold">
+                        <div class="flex flex-col items-center">
+                            <span class="block">Inicio:</span>
+                            <span id="jornadaInicio" class="block"></span>
+                        </div>
+                        <div class="flex flex-col items-center">
+                            <span class="block">Fin:</span>
+                            <span id="jornadaFinal" class="block"></span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Contenedor para los botones en la misma línea -->
+                <div class="flex space-x-4">
+                    <!-- Botón para añadir un puesto -->
+                    <button id="anyadirPuesto"
+                        class="flex items-center w-full sm:w-auto justify-center bg-[#2563eb] hover:bg-[#3b82f6] text-white font-semibold py-3 px-4 rounded-lg shadow-md transform transition duration-300 hover:scale-105 hover:shadow-lg space-x-2 animate-fadeInFromLeft resaltadoBotones">
+                        <span><i class="bi bi-person-workspace"></i> Añadir puesto</span>
+                    </button>
+
+                    <!-- Botón para añadir una etapa -->
+                    <button id="anyadirEtapa" style="display: none;"
+                        class="flex items-center w-full sm:w-auto justify-center bg-[#2563eb] hover:bg-[#3b82f6] text-white font-semibold py-3 px-4 rounded-lg shadow-md transform transition duration-300 hover:scale-105 hover:shadow-lg space-x-2 animate-fadeInFromLeft animate-delay-200 resaltadoBotones">
+                        <span><i class="bi bi-plus-square"></i> Añadir etapa</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Contenedor principal -->
+            <div class="flex-1 flex flex-col overflow-auto">
+
+                <!-- Sección superior (Header o barra superior) -->
+                <header class="bg-gray-800 shadow p-4 rounded-lg max-w-4xl mx-auto flex items-center">
+                    <img src="/assets/logo_HORSE.png" alt="logo_HORSE" class="navbar-logo mr-4">
+                    <h1 class="text-3xl font-semibold text-white">APP CARRETILLERO</h1>
+                </header>
+
+                <!-- Sección inferior (Contenido principal) -->
+                <main class="flex-1 bg-gray-900 p-6 flex flex-col">
+                    <!-- Parte superior del contenido principal -->
+                    <div class="flex-1 bg-white p-4 mb-4 rounded-lg shadow">
+                        <!-- Contenedor para los gráficos de los puestos -->
+                        <div id="graficos-container" class="flex justify-center items-center mt-6"
+                            style="height: 500px; width: 100%;">
+                            <!-- El gráfico se renderizará aquí -->
+                        </div>
+
+                        <br>
+                    </div>
+
+                    <!-- Parte inferior del contenido principal -->
+                    <div class="flex-1 bg-white p-4 rounded-lg shadow">
+                        <h2 class="text-xl font-bold text-black" id="tituloPrincipalEtapasDisponibles">Etapas
+                            disponibles</h2>
+
+                        <div id="tablaEtapasGlobal"></div>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </body>
+
+</html>
+
+<script>
+    //Inicializamos el JQUERY
+    $(document).ready(function () {
+        $(document).ready(function () {
+            //Añadimos la funcionalidad para el botón de añadir puesto
+            $('#anyadirPuesto').on('click', function () {
+                //Configuramos el título del modal
+                $('#modal .modal-title').text('CREAR UN PUESTO');
+
+                //Configuramos el cuerpo del modal
+                $('#modal .modal-body').html(`
+                    <form id="formulario_anyadirPuesto" method="POST">
+                        <!-- Número de puesto -->
+                        <div class="mb-4">
+                            <label for="numero_puesto" class="block text-gray-700 font-bold mb-2">Número de Puesto:</label>
+                            <input type="number" id="numero_puesto" name="numero_puesto" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Ingresa el número de puesto" required>
+                        </div>
+
+                        <!-- Nombre del puesto -->
+                        <div class="mb-4">
+                            <label for="nombre_puesto" class="block text-gray-700 font-bold mb-2">Nombre del Puesto:</label>
+                            <input type="text" id="nombre_puesto" name="nombre_puesto" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Ingresa el nombre del puesto" required>
+                        </div>
+
+                        <!-- Número de operarios -->
+                        <div class="mb-4">
+                            <label for="numero_operarios" class="block text-gray-700 font-bold mb-2">Número de Operarios:</label>
+                            <input type="number" id="numero_operarios" name="numero_operarios" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Ingresa el número de operarios" min="1" max="5" required>
+                        </div>
+
+                        <!-- Opción para los turno -->
+                        <div class="mb-4">
+                            <label for="turno" class="block text-sm font-medium text-gray-700 mb-2">Seleccione un turno</label>
+                            <select id="turno" name="turno" class="form-select">
+                                <option value="M">🌞 Mañana</option>
+                                <option value="T">🌇 Tarde</option>
+                                <option value="N">🌙 Noche</option>
+                            </select>
+                        </div>
+
+                        <!-- Botón de continuar -->
+                        <div class="mt-6">
+                            <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-500 transition duration-300">Crear puesto</button>
+                        </div>
+                    </form>
+                `);
+
+                //Configuramos el footer del modal
+                $('#modal .modal-footer').html(``);
+
+                //Mostramos el modal
+                $('#modal').modal('show');
+
+                //Añadimos la funcionalidad al formulario después de que ha sido creado
+                $('#formulario_anyadirPuesto').on('submit', function (e) {
+                    //Paramos la propagación
+                    e.preventDefault();
+
+                    //Iniciamos la solicitud POST
+                    fetch(`/film/api/anyadirPuesto/${document.getElementById('numero_puesto').value}/${document.getElementById('nombre_puesto').value}/${document.getElementById('numero_operarios').value}/${document.getElementById('turno').value}/${planta}`, {
+                        method: "POST"
+                    })
+                        //Controlamos la respuesta
+                        .then(response => {
+                            //En caso de que todo haya salido bien
+                            if (response.status === 201) {
+                                mostrarAlerta("Puesto creado", null, null, 1);
+                            }
+
+                            //En caso de error
+                            else if (response.status === 400) {
+                                mostrarAlerta("Error en la creación del puesto", "Se ha producido un error a la hora de crear el puesto", "error", 0);
+                            }
+
+                            //Otros casos no controlados
+                            else {
+                                console.log("Respuesta: ", response);
+                                mostrarAlerta("Estado no controlado", "No se ha sido capaz de controlar el estado de la creación del puesto", "question", null);
+                            }
+                        })
+
+                        //Controlamos los errores
+                        .catch(error => {
+                            mostrarAlerta("Error", "Error de conexión con el servidor", "error", null);
+                        });
+                });
+            });
+
+            //Aplicamos la funcionalidad para el botón de cerrar el modal
+            $('#closeModal').click(function () {
+                //Cerramos el modal
+                $('#modal').fadeOut();
+            });
+        });
+    });
+
+    //Creamos una instancia del DropDown de los turnos
+    const dropdown_turnos_opciones = document.querySelectorAll('.dropdown-item');
+
+    //Iteramos por el dropdown de los turnos
+    dropdown_turnos_opciones.forEach(item => {
+        //Creamos un escuchador
+        item.addEventListener('click', function (event) {
+            //Creamos una variable para obtener el dato del turno
+            const turno_seleccionado = event.target.getAttribute('data-turno');
+
+            //Creamos una variable para almacenar el texto del turno
+            let turno;
+
+            //Creamos un switch para controlar el turno seleccionado
+            switch (turno_seleccionado) {
+                case "M":
+                    turno = "Mañana";
+                    break;
+
+                case 'T':
+                    turno = "Tarde";
+                    break;
+
+                case 'N':
+                    turno = "Noche";
+                    break;
+
+                default:
+                    turno = "Todos los turnos"
+                    break;
+            }
+
+            //Creamos una instancia del dropdown
+            const dropdown_turnos = document.getElementById('dropdownTurnos');
+
+            //Cambios el texto del botón del dropdown al turno seleccionado
+            dropdown_turnos.textContent = turno;
+
+            //Llamamos a la función para ocultar/mostrar los puestos dependiendo del turno seleccionado
+            mostrarPuestoTurno(turno_seleccionado);
+        });
+    });
+
+
+    /**
+     * Función para mostrar/ocultar los puestos por el turno seleccionado
+     * */
+    function mostrarPuestoTurno(turno_seleccionado) {
+        console.log("Turno seleccionado: ", turno_seleccionado);
+
+        //Creamos una instancia de los LI
+        const li_elementos = document.querySelectorAll('#graficos-container .glide__slide');
+
+        console.log("LI: ", li_elementos)
+
+        //Recorremos cada li
+        li_elementos.forEach(li => {
+            //Almacenamos el turno del puesto
+            const turno = li.getAttribute('data-turno');
+
+            console.log("Turno: ", turno);
+
+            //Si el usuario selecciona todos los puestos
+            if (turno_seleccionado === 'A') {
+                li.classList.remove('ocultarElemento');
+
+                //Si el turno coincide con el seleccionado o ha seleccionado todos los turnos...
+            } else if (turno === turno_seleccionado) {
+                li.classList.remove('ocultarElemento');
+
+                //En cualquier otro caso...
+            } else {
+                li.classList.add('ocultarElemento');
+            }
+        });
+    }
+</script>
+
+</html>

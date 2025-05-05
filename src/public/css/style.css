@@ -1,0 +1,499 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Estilo para el cuerpo */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #1a202c;
+    margin: 0;
+    padding: 0;
+    color: white;
+}
+
+/* Cambiar el color de los labels dentro de los modales */
+#modal label,
+#modalInformeFinal label,
+#modalPlanta label,
+#modalLarge label,
+#modalInforme label,
+#modalDetalle label,
+#informe-detallado label {
+    color: white !important;
+}
+
+#modal input,
+#modal select,
+#modalInformeFinal input,
+#modalInformeFinal select,
+#modalLarge input,
+#modalLarge select,
+#modalInforme input,
+#modalInforme select,
+#modalDetalle input,
+#modalDetalle select,
+#informe-detallado input,
+#informe-detallado select {
+    color: black !important;
+}
+
+/* Estilo para la tabla */
+.min-w-full {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+/* Fondo blanco para toda la tabla */
+.min-w-full.bg-white {
+    background-color: #f9f9f9;
+    color: #000000;
+}
+
+/* Estilo para las cabeceras */
+.min-w-full th {
+    background-color: #e0e0e0;
+    padding: 10px;
+    text-align: left;
+    font-weight: bold;
+    color: #000000;
+}
+
+/* Estilo para las celdas de la tabla */
+.min-w-full td {
+    background-color: #ffffff;
+    /* Fondo blanco para las celdas */
+    padding: 8px;
+    text-align: left;
+    color: #000000;
+}
+
+/* Efecto Zebra: Fondo gris muy claro para filas pares */
+.min-w-full tr:nth-child(even) {
+    background-color: #f1f1f1;
+}
+
+/* Efecto hover sobre filas */
+.min-w-full tr:hover {
+    background-color: #e0e0e0;
+}
+
+/* Estilo para las celdas de las cabeceras que tienen iconos */
+.min-w-full i {
+    color: #000000;
+}
+
+/* Estilo para el logo */
+.navbar-logo {
+    max-width: 100px;
+    margin-right: 10px;
+}
+
+/* Aseguramos la transición de todos los efectos */
+.navbar-logo {
+    transition: all 0.3s ease;
+}
+
+/* Efecto hover: escalado, rotación y sombra */
+header:hover .navbar-logo {
+    transform: scale(1.2) rotate(10deg);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    filter: brightness(1.2);
+}
+
+/* Estilo para ocultar */
+.hidden {
+    display: none;
+}
+
+.modal-content {
+    color: white;
+}
+
+/* Estilo para el resaltado del puesto */
+.resaltado {
+    animation: fadeInFromLeft 0.5s ease-out;
+    animation-fill-mode: forwards;
+    background-color: rgb(221, 221, 221) !important;
+    border: 2px solid rgb(213, 213, 213) !important;
+    transition: background-color 0.3s, border 0.3s;
+}
+
+/* Estilo para el resaltado de los botones importantes */
+.resaltadoBotones {
+    animation: fadeInFromLeft 0.5s ease-out;
+    animation-fill-mode: forwards;
+    background-color: rgb(114, 148, 201) !important;
+    border: 2px solid rgb(168, 172, 177) !important;
+    transition: background-color 0.3s, border 0.3s;
+}
+
+/* Keyframe para el fadeIn */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+/* Animación fadeIn */
+.animate-fadeIn {
+    animation: fadeIn 1s ease-in-out;
+}
+
+/* Keyframe para slideInUp */
+@keyframes slideInUp {
+    0% {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Animación slideInUp */
+.animate-slideInUp {
+    animation: slideInUp 0.75s ease-out;
+}
+
+/* Keyframe para el slideInLeft */
+@keyframes slideInLeft {
+    0% {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Animación para el slideInLeft */
+.animate-slideInLeft {
+    animation: slideInLeft 0.6s ease-out forwards;
+}
+
+/* Keyframe para el fadeInFromLeft */
+@keyframes fadeInFromLeft {
+    0% {
+        transform: translateX(-50px);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Animación fadeInFormLeft */
+.animate-fadeInFromLeft {
+    animation: fadeInFromLeft 0.5s ease-out forwards;
+}
+
+/* Delay para las animaciones */
+.animate-delay-200 {
+    animation-delay: 0.2s;
+}
+
+.animate-delay-400 {
+    animation-delay: 0.4s;
+}
+
+/* Estilo para el contenedor del gráfico del modal del informe */
+#modal-grafico-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background-color: #2d3748;
+    /* Fondo oscuro */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+/* Estilo para el modal del informe */
+#modalInforme {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* Estilo para el canvas del contenedor del modal del informe */
+#modal-grafico-container canvas {
+    max-width: 50%;
+    max-height: 90%;
+}
+
+#modal-grafico-container h4 {
+    margin: 10px; /* Espacio entre los elementos de fecha */
+    font-size: 20px; /* Ajusta el tamaño de la fuente según sea necesario */
+    text-align: center; /* Centra el texto */
+}
+
+#iconoGrande {
+    font-size: 3rem;
+}
+
+/* Estilo para los botones de categorías */
+.categoria-boton {
+    display: inline-block;
+    margin: 5px;
+    padding: 10px 20px;
+    background-color: #4a5568;
+    /* Color de fondo oscuro */
+    color: white;
+    /* Texto blanco */
+    border: 1px solid #2d3748;
+    /* Borde oscuro */
+    border-radius: 5px;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.categoria-boton:hover {
+    background-color: #2d3748;
+    /* Color de fondo más oscuro al pasar el ratón */
+    color: white;
+    /* Texto blanco */
+}
+
+/* Contenedor para los botones de categorías */
+.categoria-contenedor {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding: 10px;
+    background-color: #2d3748;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .flex {
+        flex-direction: column;
+    }
+
+    .w-full {
+        width: 100%;
+    }
+
+    .p-4 {
+        padding: 1rem;
+    }
+
+    .py-3 {
+        padding-top: 0.75rem;
+        padding-bottom: 0.75rem;
+    }
+
+    .px-4 {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    .text-2xl {
+        font-size: 1.5rem;
+    }
+
+    .text-lg {
+        font-size: 1.125rem;
+    }
+
+    .rounded-lg {
+        border-radius: 0.5rem;
+    }
+
+    .shadow-md {
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+}
+
+/* Estilo para el botón de restauras */
+#botonRestaurarPuesto {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #2d2d2d;
+    color: #f0f0f0;
+    padding: 12px 18px;
+    font-size: 14px;
+    border: 1px solid #444;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+/* Estilo para el botón de restauras cuando se pase el puntero */
+#botonRestaurarPuesto:hover {
+    background-color: #444;
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* Animación para ocultar el <li> */
+.ocultarElemento {
+    animation: fadeOut 0.5s ease-out forwards, slideDown 0.5s ease-out forwards;
+}
+
+/* Animación para restaurar el <li> */
+.restaurarElemento {
+    animation: fadeIn 0.5s ease-in forwards, slideUp 0.5s ease-in forwards;
+}
+
+/* Desvanecimiento */
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+/* Deslizamiento hacia abajo (ocultar) */
+@keyframes slideDown {
+    0% {
+        transform: translateY(0);
+    }
+
+    100% {
+        transform: translateY(20px);
+    }
+}
+
+/* Deslizamiento hacia arriba (restaurar) */
+@keyframes slideUp {
+    0% {
+        transform: translateY(20px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
+/* Estilo para los ítems de la leyenda */
+.item_leyenda {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+/* Estilo para los cuadrados de colores de la leyenda */
+.color_leyenda {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+/* Estilo para el dropDown del turno */
+.dropdown-toggle {
+    background-color: #1f2937;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    transition: background-color 0.3s ease;
+}
+
+.dropdown-toggle:hover {
+    background-color: #4a6b8c;
+}
+
+.dropdown-menu {
+    background-color: #1f2937;
+    border: none;
+    border-radius: 0.375rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-item {
+    color: white;
+    padding: 0.5rem 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.dropdown-item:hover {
+    background-color: #4a6b8c;
+}
+
+/* Contenedor principal */
+.graficos-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Contenedores de gráficos */
+.contenedor-grafico {
+    padding: 15px;
+    border-radius: 10px;
+    background-color: #34495e;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Gráfico de puesto */
+.contenedor-grafico.puesto {
+    flex: 0 1 30%;
+    max-width: 30%;
+    height: auto;
+}
+
+/* Media queries para pantallas más pequeñas */
+@media (max-width: 768px) {
+    .contenedor-grafico.puesto {
+        flex: 1 1 100%;
+        max-width: 100%;
+        height: auto;
+    }
+
+    .graficos-container {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .contenedor-grafico {
+        padding: 10px;
+    }
+
+    .contenedor-grafico.puesto canvas {
+        width: 100%;
+        height: auto;
+    }
+}
