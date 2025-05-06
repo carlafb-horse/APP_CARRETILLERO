@@ -42,6 +42,66 @@ El proyecto está organizado en los siguientes directorios y archivos principale
     ```bash
     npm start
 
-5. Accede a la aplicación en tu navegador:
-    ```bash
+5. Accede a la aplicación en tu navegador:  
     http://localhost:3000
+
+
+## Funcionalidades Principales
+#### 1. Gestión de Etapas
+- Añadir, editar y eliminar etapas operativas.
+- Visualizar detalles de cada etapa, como distancia, tiempo y número de picadas.
+#### 2. Visualización de Gráficos
+- Gráficos de saturación por puesto.
+- Gráficos de chimenea para analizar tiempos de actividad.
+#### 3. Gestión de Referencias
+- Comprobación de referencias válidas.
+- Vinculación de referencias a etapas específicas.
+#### 4. Modal Interactivo
+- Configuración de modales para introducir datos manualmente.
+- Visualización de informes detallados.
+
+## Endpoints Principales
+Rutas Backend (src/routes/index.js)
+#### 1. Gestión de Etapas
+- POST /anyadirEtapa/:puesto_id/:referencia_embalaje/:operacion_seleccionada/:numero_picadas
+
+#### 2. Visualización de Datos
+- GET /graficoChimenea/:id_puesto
+- GET /conteoUM/:referencia_componente
+
+#### 3. Gestión de Referencias
+- GET /comprobarReferencias/:referencias
+- GET /obtenerReferencias-puesto/:puesto_id
+
+#### 4. Otros
+- GET /fechaTomaDatos
+- GET /obtenerDatos/:referencia/:puesto_id
+
+
+## Archivos Clave
+#### 1. src/public/script/film.js
+- Contiene la lógica principal del frontend, incluyendo:  
+    - Funciones para renderizar gráficos (renderizarGrafico).
+    - Gestión de etapas (anyadirEtapa, subirEtapa).
+    - Configuración de modales (anyadirReferenciaManual).
+#### 2. src/routes/index.js
+- Define los endpoints del backend, incluyendo:
+    - Gestión de etapas y referencias.
+    - Consultas SQL para obtener y actualizar datos.
+#### 3. src/public/css/style.css
+- Estilos personalizados para la interfaz de usuario.
+
+## Tecnologías Utilizadas
+#### - Frontend:
+- HTML, CSS (TailwindCSS, Bootstrap)
+- JavaScript (Chart.js, SortableJS)
+#### - Backend:
+- Node.js, Express.js
+- MySQL
+#### - Otros:
+- EJS para plantillas dinámicas.
+- Fetch API para comunicación cliente-servidor.
+
+## Contacto
+- Email: [carla.fuente-bernardino-extern@horse.tech](mailto:carla.fuente-bernardino-extern@horse.tech)
+- GitHub: https://github.com/carlafb-horse
