@@ -11,3 +11,23 @@ El proyecto incluye una interfaz de usuario interactiva y un backend robusto que
 ## Estructura del Proyecto
 
 El proyecto está organizado en los siguientes directorios y archivos principales:
+
+---
+
+## Instalación
+
+### Requisitos Previos
+
+- Node.js (v14 o superior)
+- MySQL
+- npm (Node Package Manager)
+
+### Pasos de Instalación
+
+1. Clona este repositorio:
+   ```bash
+   git clone https://github.com/tu-usuario/APP_CARRETILLERO.git
+   cd APP_CARRETILLERO
+
+2. Instala las dependencias:
+npm install
