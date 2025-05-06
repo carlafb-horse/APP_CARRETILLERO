@@ -8,7 +8,7 @@ const router = Router();
 
 //Router para la página principal del router
 router.get('/', (req, res) => {
-  res.render('film');
+  res.render('app');
 });
 
 

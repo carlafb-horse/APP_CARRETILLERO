@@ -44,7 +44,7 @@ async function fetchData() {
     /**Obtenemos los PUESTOS */
     try {
         //Almacenamos en una variable la respuesta de la llamada al end point para obtener los puestos
-        const response = await fetch('/film/api/obtenerPuestos');
+        const response = await fetch('/app/api/obtenerPuestos');
 
         //Controlamos la respuesta
         if (!response.ok) {
@@ -67,7 +67,7 @@ async function fetchData() {
     /**Obtenemos el conteo de Fs */
     try {
         //Almacenamos en una variable la respuesta a la llamada al end point para obtener el conteo de Fs
-        const response = await fetch('/film/api/conteoFs');
+        const response = await fetch('/app/api/conteoFs');
 
         //Controlamos la respuesta
         if (!response.ok) {
@@ -128,7 +128,7 @@ function gestionarPuesto(data) {
 
         /* ------------------- PARA GRÁFICO DE CHIMENEA -------------------
         //Preparamos la petición GET para obtener el tiempo total de un puesto
-        fetch(`/film/api/tiempoTotal/${item.id}`, { method: "GET" })
+        fetch(`/app/api/tiempoTotal/${item.id}`, { method: "GET" })
             //Controlamos la respuesta
             .then(response => {
                 //En caso de que sea mala
@@ -198,7 +198,7 @@ function gestionarGraficoChimenea(data) {
     //Iteramos por los datos del puesto
     data.forEach(item => {
         //Preparamos la petición GET para obtener los tiempos para generar el gráfico de chimenea
-        fetch(`/film/api/graficoChimenea/${item.id}`, { method: "GET" })
+        fetch(`/app/api/graficoChimenea/${item.id}`, { method: "GET" })
             //Controlamos la respuesta
             .then(response => {
                 //En caso de que sea mala
@@ -900,7 +900,7 @@ function inicializarBotonEtapas(button) {
  */
 function obtenerTurno(puestoId) {
     //Preparamos la solicitud GET para obtener los turnos
-    fetch(`/film/api/obtenerTurno/${puestoId}`, {
+    fetch(`/app/api/obtenerTurno/${puestoId}`, {
         method: "GET"
     })
         //Controlamos la respuesta
@@ -1011,7 +1011,7 @@ function confirmarEliminar(icono, titulo, id, tabla, id_puesto) {
 
 function obtenerEtapas(puestoID) {
     //Iniciamos la solicitud GET para obtener las etapas de un puesto
-    fetch(`/film/api/obtenerEtapasAgrupadasPuesto/${puestoID}`, {
+    fetch(`/app/api/obtenerEtapasAgrupadasPuesto/${puestoID}`, {
         method: "GET"
     })
         //Controlamos la respuesta
@@ -1147,7 +1147,7 @@ function toggleEtapas(id_puesto, nombre_etapa) {
 function generarTablasPorPuesto(puestoID, nombre_etapa) {
     console.log("puesto: ", puestoID, nombre_etapa)
     //Iniciamos la solicitud GET para obtener las etapas de un puesto
-    fetch(`/film/api/obtenerEtapas_Puesto/${puestoID}/${nombre_etapa}`, {
+    fetch(`/app/api/obtenerEtapas_Puesto/${puestoID}/${nombre_etapa}`, {
         method: "GET"
     })
         //Controlamos la respuesta
@@ -1207,7 +1207,7 @@ function generarTablasPorPuesto(puestoID, nombre_etapa) {
     const semana_actual = obtenerNumeroSemana();
 
     //Preparamos la petición GET para obtener las referencias asociadas al puesto
-    fetch(`/film/api/obtenerReferencias-puesto/${puesto_id}`, {
+    fetch(`/app/api/obtenerReferencias-puesto/${puesto_id}`, {
         method: "GET"
     })
         //Controlamos la respuesta
@@ -1237,8 +1237,8 @@ function obtenerFechas_Referencias(puesto_id, data) {
     //Iteramos por las referencias obtenidas
     data.forEach(item => {
         //Preparamos la peticón GET para obtener las fechas
-        //fetch(`/film/api/obtenerFechas-Programa-Recepcion/${item.referencia_componente}/${item.tipo_operacion}`, {
-        fetch(`/film/api/obtenerCantidad-grafico/${item.referencia_componente}/${'2025-04-30'}/${puesto_id}`, {
+        //fetch(`/app/api/obtenerFechas-Programa-Recepcion/${item.referencia_componente}/${item.tipo_operacion}`, {
+        fetch(`/app/api/obtenerCantidad-grafico/${item.referencia_componente}/${'2025-04-30'}/${puesto_id}`, {
             method: "GET"
         })
             //Controlamos la respuesta
@@ -1310,7 +1310,7 @@ function generarTablasPorEtapa(etapas, nombre_etapa) {
         const actividad_minutos_picada = etapasDeF[0].actividad_minutos;
 
         //Creamos una solicitud para obtener los datos de las etapas
-        fetch(`/film/api/obtenerEtapas/${encodeURIComponent(FKey)}`, {
+        fetch(`/app/api/obtenerEtapas/${encodeURIComponent(FKey)}`, {
             method: "GET"
         })
             .then(response => {
@@ -1328,7 +1328,7 @@ function generarTablasPorEtapa(etapas, nombre_etapa) {
 
 
                     //Preparamos la petición GET para obtener el conteos de UM
-                    fetch(`/film/api/conteoUM/${referenciaComponente}`, {
+                    fetch(`/app/api/conteoUM/${referenciaComponente}`, {
                         method: "GET"
                     })
                         //Controlamos la respuesta
@@ -1591,7 +1591,7 @@ function editarEtapa(id_puesto, operacion, num_picadas) {
             numero_picadas = document.getElementById('numeroPicadas').value;
 
             //Preparamos la petición GET para actualizar la etapa
-            fetch(`/film/api/actualizarEtapa/${id_puesto}/${operacion}/${numero_picadas}/1`, {
+            fetch(`/app/api/actualizarEtapa/${id_puesto}/${operacion}/${numero_picadas}/1`, {
                 method: "PUT"
             })
                 // Controlamos los datos
@@ -1619,7 +1619,7 @@ function ordernarEtapa(array) {
     let arrayString = array.join(',');
 
     // Enviar la solicitud al servidor
-    fetch(`/film/api/actualizarOrden/${encodeURIComponent(arrayString)}`, {
+    fetch(`/app/api/actualizarOrden/${encodeURIComponent(arrayString)}`, {
         method: "PUT",
     })
         .then(response => {
@@ -1688,7 +1688,7 @@ function funcionalidadVelocidad() {
 function obtenerConteosUM(referencia_compontente) {
     let total_pieces = null;
 
-    fetch(`/film/api/conteoUM/${referencia_compontente}`, {
+    fetch(`/app/api/conteoUM/${referencia_compontente}`, {
         method: "GET"
     })
         //Controlamos la respuesta
@@ -1803,7 +1803,7 @@ function obtenerCodigoMTM3(machine_used) {
     let code_MTM3 = "";
 
     //Preparamos la solicitud GET para obtener el código MTM3
-    return fetch(`/film/api/obtenerCodigoMTM3/${machine_used}`, {
+    return fetch(`/app/api/obtenerCodigoMTM3/${machine_used}`, {
         method: "GET"
     })
         //Controlamos la respuesta
@@ -1849,7 +1849,7 @@ function buscadorReferencias(puesto_id) {
     console.log("Dentro de la función")
 
     //Preparamos la petición GET para obtener las referencias y disponerlas en un modal dependiendo de la operación y del turno del puesto
-    fetch(`/film/api/obtener-referencias/${puesto_id}}`, {
+    fetch(`/app/api/obtener-referencias/${puesto_id}}`, {
         method: "GET"
     })
         .then(response => {
@@ -2076,7 +2076,7 @@ function anyadirEtapa(id_puesto, operacion, num_picadas) {
             operacion_seleccionada = document.getElementById('operacion').value;
 
             //Preparamos la petición GET para obtener las referencias válidas
-            fetch(`/film/api/comprobarReferencias/${referencia_componente}`, {
+            fetch(`/app/api/comprobarReferencias/${referencia_componente}`, {
                 method: "GET"
             })
                 //Controlamos la respuesta
@@ -2128,7 +2128,7 @@ function obtenerValorCarga(item, cantidad_a_expedir, tipo_operacion, tipo_carga)
     console.log("Referencia: ", item)
 
     //Preparamos la petición GET
-    fetch(`/film/api/obtenerEmbalajes/${item}`, {
+    fetch(`/app/api/obtenerEmbalajes/${item}`, {
         method: "GET"
     })
         //Controlamos la respuesta
@@ -2190,11 +2190,11 @@ function anyadirEtapaFinal(id_puesto, operacion_seleccionada, num_picadas, numer
     console.log('id_puesto:', puestoID);
 
     //Iniciamos la solicitud GET para añadir la etapa al puesto
-    /*fetch(`/film/api/anyadirEtapa/${puestoID}/${referencia_embalaje}/${encodeURIComponent(operacion_seleccionada)}/${numero_picadas}/${numero_embalajes}`, {
+    /*fetch(`/app/api/anyadirEtapa/${puestoID}/${referencia_embalaje}/${encodeURIComponent(operacion_seleccionada)}/${numero_picadas}/${numero_embalajes}`, {
         method: "POST"
     });*/
 
-    fetch(`/film/api/anyadirEtapa/${puestoID}/${referencia_embalaje}/${encodeURIComponent(operacion_seleccionada)}/${numero_picadas}`, {
+    fetch(`/app/api/anyadirEtapa/${puestoID}/${referencia_embalaje}/${encodeURIComponent(operacion_seleccionada)}/${numero_picadas}`, {
         method: "POST"
     });
 }
@@ -2425,7 +2425,7 @@ function subirEtapa(id_puesto, operacion, num_picadas, opcion) {
 
     console.log("REF: ", referenciasQuery);
 
-    fetch(`/film/api/obtenerDatos/${referenciasQuery}/${puestoID}`, {
+    fetch(`/app/api/obtenerDatos/${referenciasQuery}/${puestoID}`, {
         method: "GET"
     })
         .then(response => {
@@ -2458,7 +2458,7 @@ function subirEtapa(id_puesto, operacion, num_picadas, opcion) {
             // const rowDataJson = encodeURIComponent(JSON.stringify(rowData));
 
             // //Abrimos la página del plano en una nueva pestaña
-            // window.open(`/film/visualizarPlano?data=${rowDataJson}`, '_blank');
+            // window.open(`/app/visualizarPlano?data=${rowDataJson}`, '_blank');
 
             if(opcion === 2){
                 mostrarAlerta("Etapa/s creada/s", null, null, 1);
@@ -2644,7 +2644,7 @@ function editarDistancia(id_puesto, operacion) {
             console.log("Distancia: ", operacion)
 
             //Preparamos la petición GET para actualizar la etapa
-            fetch(`/film/api/actualizarEtapa/${id_puesto}/${operacion}/${numero_picadas}/2`, {
+            fetch(`/app/api/actualizarEtapa/${id_puesto}/${operacion}/${numero_picadas}/2`, {
                 method: "PUT"
             })
                 // Controlamos los datos
@@ -2673,7 +2673,7 @@ function disponerTablaOperaciones(id_etapa) {
     console.log("ID de la etapa dentro de la etapa de las opciones: ", id_etapa);
 
     //Preparamos la petición GET para obtener los valores de cada etapa
-    fetch(`/film/api/obtenerInformacionEtapa_Valores/${id_etapa}`, {
+    fetch(`/app/api/obtenerInformacionEtapa_Valores/${id_etapa}`, {
         method: "GET"
     })
 
@@ -2732,7 +2732,7 @@ function controlarRespuesta_Etapa(response) {
 function eliminarRegistro(tipo, id_elemento, tabla, id_puesto) {
     console.log("TIPO: ", tipo, "ID ELEMENTO: ", id_elemento, "TABLA: ", tabla, "ID PUESTO: ", id_puesto);
     //Preparamos la solicitud DELETE
-    fetch(`/film/api/eliminarRegistro/${id_elemento}/${tabla}/${id_puesto}`, {
+    fetch(`/app/api/eliminarRegistro/${id_elemento}/${tabla}/${id_puesto}`, {
         method: "DELETE"
     })
         //Controlamos la respuesta
@@ -2799,7 +2799,7 @@ function buscarEtapas() {
  */
 function gestionarEtapa(id_etapa) {
     //Preparamos la solicitud GET para obtener todos los puestos
-    fetch('/film/api/obtenerPuestos', {
+    fetch('/app/api/obtenerPuestos', {
         method: "GET"
     })
         //Controlamos la respuesta
@@ -2857,7 +2857,7 @@ function gestionarEtapa(id_etapa) {
                 const id_puesto = document.getElementById('puesto').value, gestion = document.getElementById('gestion').value;
 
                 //Preparamos la solicitud POST para llamar al end point para gestionar la etapa
-                fetch(`/film/api/gestionarEtapa/${id_etapa}/${id_puesto}/${gestion}`, {
+                fetch(`/app/api/gestionarEtapa/${id_etapa}/${id_puesto}/${gestion}`, {
                     method: "POST"
                 })
                     //Controlamos la respuesta
@@ -3021,7 +3021,7 @@ function configurarLinea() {
  */
 function obtenerTomaDatos(grafico_principal) {
     //Preparamos la peticion GET para obtener las fechas 
-    fetch('/film/api/fechaTomaDatos', {
+    fetch('/app/api/fechaTomaDatos', {
         method: "GET"
     })
         //Controlamos los datos
@@ -3145,7 +3145,7 @@ function graficoPrueba() {
  */
 function obtenerPrimerDia(tipo_operacion) {
     //Preparamos la petición GET
-    fetch(`/film/api/obtenerPrimerDia/${tipo_operacion}`, {
+    fetch(`/app/api/obtenerPrimerDia/${tipo_operacion}`, {
         method: "GET"
     })
         //Controlamos la respuesta
@@ -3176,7 +3176,7 @@ function subirEtapaManual(referencia_embalaje) {
     //Iteramos por las referenicas finales
     Object.keys(referencia_embalaje_final).forEach(referencia => {
         //Preparamos la peticion POST para añadir la etapa manual
-        fetch(`/film/api/anyadirEtapaManual/${puestoID}/${encodeURIComponent(JSON.stringify({ [referencia]: referencia_embalaje_final[referencia] }))}/${encodeURIComponent(operacion_seleccionada)}/${mote}/${tipo_operacion}/${numero_picadas}`, {
+        fetch(`/app/api/anyadirEtapaManual/${puestoID}/${encodeURIComponent(JSON.stringify({ [referencia]: referencia_embalaje_final[referencia] }))}/${encodeURIComponent(operacion_seleccionada)}/${mote}/${tipo_operacion}/${numero_picadas}`, {
             method: "POST"
         })
 

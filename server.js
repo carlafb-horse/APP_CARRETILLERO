@@ -37,13 +37,13 @@ app.use(express.static(join(__dirname, 'src', 'public')));
 //Configuramos la ruta estática para los ficheros de la DIGITAL LIBRARY
 app.use('/uploads', express.static(join(__dirname, 'src', 'routes', 'library', 'public', 'uploads')));
 
-//Configuramos las rutas para el FILM, DIGITAL LIBRARY y DIE DIMENSIONAL
-app.use('/film', rutas);
+//Configuramos la ruta
+app.use('/app', rutas);
 
 //Configuramos la página de redirección
 app.get("/", (req, res) => {
     //Redirigimos a la página de inicio de selección de herramienta
-    res.render('index');
+    res.render('app');
 });
 
 //Configuramos el puerto

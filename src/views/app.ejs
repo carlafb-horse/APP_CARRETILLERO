@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>APP CARRETILLERO</title>
-    <script src="/script/film.js"></script>
+    <script src="/script/app.js"></script>
     <link href="/css/style.css" rel="stylesheet">
     
 
@@ -178,7 +178,7 @@
                     e.preventDefault();
 
                     //Iniciamos la solicitud POST
-                    fetch(`/film/api/anyadirPuesto/${document.getElementById('numero_puesto').value}/${document.getElementById('nombre_puesto').value}/${document.getElementById('numero_operarios').value}/${document.getElementById('turno').value}/${planta}`, {
+                    fetch(`/app/api/anyadirPuesto/${document.getElementById('numero_puesto').value}/${document.getElementById('nombre_puesto').value}/${document.getElementById('numero_operarios').value}/${document.getElementById('turno').value}/${planta}`, {
                         method: "POST"
                     })
                         //Controlamos la respuesta

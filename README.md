@@ -79,7 +79,7 @@ Rutas Backend (src/routes/index.js)
 
 
 ## Archivos Clave
-#### 1. src/public/script/film.js
+#### 1. src/public/script/app.js
 - Contiene la lógica principal del frontend, incluyendo:  
     - Funciones para renderizar gráficos (renderizarGrafico).
     - Gestión de etapas (anyadirEtapa, subirEtapa).

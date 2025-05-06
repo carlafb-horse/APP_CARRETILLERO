@@ -181,31 +181,6 @@
             <!-- Modal body -->
             <div class="p-4 md:p-5 space-y-4 grid grid-cols-5 gap-4" id="body-modal">
 
-                <!-- <div class="bg-gray-700 dark:bg-gray-600 rounded-lg p-4">Gráfico 1</div>
-                <div class="bg-gray-700 dark:bg-gray-600 rounded-lg p-4">Gráfico 2</div>
-                <div class="bg-gray-700 dark:bg-gray-600 rounded-lg p-4">Gráfico 3</div>
-                <div class="bg-gray-700 dark:bg-gray-600 rounded-lg p-4">Gráfico 4</div>
-                <div class="bg-gray-700 dark:bg-gray-600 rounded-lg p-4">Gráfico 5</div>
-                <div class="bg-gray-700 dark:bg-gray-600 rounded-lg p-4">Gráfico 6</div>
-                <div class="bg-gray-700 dark:bg-gray-600 rounded-lg p-4">Gráfico 7</div>
-                <div class="bg-gray-700 dark:bg-gray-600 rounded-lg p-4">Gráfico 8</div>
-                <div class="bg-gray-700 dark:bg-gray-600 rounded-lg p-4">Gráfico 9</div>
-                <div class="bg-gray-700 dark:bg-gray-600 rounded-lg p-4">Gráfico 10</div>
-                <div class="bg-gray-700 dark:bg-gray-600 rounded-lg p-4">Gráfico 11</div>
-                <div class="bg-gray-700 dark:bg-gray-600 rounded-lg p-4">Gráfico 12</div>
-                <div class="bg-gray-700 dark:bg-gray-600 rounded-lg p-4">Gráfico 13</div>
-                <div class="bg-gray-700 dark:bg-gray-600 rounded-lg p-4">Gráfico 14</div>
-                <div class="bg-gray-700 dark:bg-gray-600 rounded-lg p-4">Gráfico 15</div>
-                <div class="bg-gray-700 dark:bg-gray-600 rounded-lg p-4">Gráfico 16</div>
-                <div class="bg-gray-700 dark:bg-gray-600 rounded-lg p-4">Gráfico 17</div>
-                <div class="bg-gray-700 dark:bg-gray-600 rounded-lg p-4">Gráfico 18</div>
-                <div class="bg-gray-700 dark:bg-gray-600 rounded-lg p-4">Gráfico 19</div>
-                <div class="bg-gray-700 dark:bg-gray-600 rounded-lg p-4">Gráfico 20</div> -->
-
-                <!-- <div class="mb-4">
-                    <label for="fecha" class="block text-white font-bold mb-2">Fecha:</label>
-                    <input type="date" id="fecha" name="fecha" class="w-full p-2 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white text-white" placeholder="Ingresa la fecha para realizar la búsqueda" required>
-                </div> -->
             </div>
         </div>
     </div>
@@ -239,85 +214,6 @@
 </div>
 
 <script>
-    //Creamos una variable donde contenga la información de la categoria y de las opciones
-    const operaciones = {
-        descarga_carga: [
-            { value: "F2", text: "Descarga en el muelle" },
-            { value: "F4", text: "Descarga marítima en el muelle" },
-            { value: "F5", text: "Descarga en zona plana" },
-            { value: "F6", text: "Desapilado de UM (Unidades de Manejo)" },
-            { value: "F7", text: "Control / validación de recepción" },
-            { value: "F8", text: "Reetiquetado de UM (Unidades de Manejo)" },
-            { value: "F9", text: "Desembalaje CKD (Completamente desarmado)" },
-            { value: "F29", text: "Carga de embalaje vacío" },
-            { value: "F45", text: "Preparación de imagen del camión antes de la carga" },
-            { value: "F46", text: "Carga para envío" },
-        ],
-        compras: [
-            { value: "F10", text: "Almacenamiento de UM en el suelo en pilas" },
-            { value: "F11", text: "Almacenamiento de MU en palets" },
-            { value: "F30", text: "Almacenamiento de CPU en CPL2" },
-            { value: "F12", text: "Almacenamiento de CPU en el suelo en pilas" },
-            { value: "F13", text: "Almacenamiento de CPU en gravedad" },
-            { value: "F36", text: "Eliminación de UC de TPF en un área dedicada" }
-        ],
-        preparacion: [
-            { value: "F14", text: "Carga sostenible de GE en BR" },
-            { value: "F15", text: "Carga de GE perdida en BR" },
-            { value: "F16", text: "Carga de pales en BR" },
-            { value: "F34", text: "Conexión entre edificios mediante remolque" },
-            { value: "F3", text: "Cargando CPL2 en BR" },
-            { value: "F17", text: "Preparación PE CPL1 / CPL1 EN BR" },
-            { value: "F37", text: "Instalación de PE TPF en BR" },
-            { value: "F38", text: "Preparación de PE en cestya desde palet" },
-            { value: "F41", text: "Carga de pales PPA en BR" },
-            { value: "F18", text: "Reposición nivel 0 desde paletización" },
-            { value: "F32", text: "Carga de mensajería unificada en remolque" },
-            { value: "F33", text: "Descarga de remolque" },
-            { value: "F19", text: "Rebastecimiento de nievl 0 desde el almacenamiento en ell suelo" }
-        ],
-        gestion_de_vacios_y_residuos: [
-            { value: "F24", text: "Evacuación de GE vacío" },
-            { value: "F25", text: "Eliminación de contene,dore de basura" },
-            { value: "F39", text: "Colección de cajas" },
-            { value: "F26", text: "Limpiar/plegar GE vacios" },
-            { value: "F31", text: "Almacenamiento de PE vacios" },
-            { value: "F27", text: "Descarga y almacenamiento de GE vacios" },
-            { value: "F28", text: "Descarga y almacenamiento de embalajes perdidos" }
-        ],
-        operaciones_manuales: [
-            { value: "Coger UC/UM y dejar en stock altura media", text: "Coger UC/UM y dejar en stock altura media" },
-            { value: "Coger bac y colocar en carro/estanteria", text: "Coger bac y colocar en carro/estanteria" },
-            { value: "Carga cassette nacelle J 22 bacs", text: "Carga cassette nacelle J 22 bacs" },
-            { value: "Colocacion carros manualmente", text: "Colocacion carros manualmente" },
-            { value: "Descarga muelle a imagen (UM)", text: "Descarga muelle a imagen (UM)" },
-            { value: "2. De imagen camión a stock (UM)", text: "2. De imagen camión a stock (UM)" },
-            { value: "De imagen camión a muelle (UM)", text: "De imagen camión a muelle (UM)" },
-            { value: "3. De stock a estantería (UM)", text: "3. De stock a estantería (UM)" },
-            { value: "De stock a imagen camion (UM)", text: "De stock a imagen camion (UM)" },
-            { value: "4. De imagen camión a estantería (UM)", text: "4. De imagen camión a estantería (UM)" },
-            { value: "5. De estantería a puesto inferior (UM)", text: "5. De estantería a puesto inferior (UM)" },
-            { value: "6. Gestión de residuos (UM)", text: "6. Gestión de residuos (UM)" },
-            { value: "Documentacion camión (UM)", text: "Documentacion camión (UM)" },
-            { value: "8. Zipado (UM)", text: "8. Zipado (UM)" },
-            { value: "7. Apertura (UM)", text: "7. Apertura (UM)" },
-            { value: "Plegar y apilar (UC)", text: "Plegar y apilar (UC)" },
-            { value: "De puesto inferior a carro (UC)", text: "De puesto inferior a carro (UC)" },
-            { value: "Nacelle 30 bacs (UC)", text: "Nacelle 30 bacs (UC)" },
-            { value: "Nacelle 60 bacs (UC)", text: "Nacelle 60 bacs (UC)" },
-            { value: "9. Plegado de vacíos (UM)", text: "9. Plegado de vacíos (UM)" },
-            { value: "De stock a carro (UM)", text: "De stock a carro (UM)" },
-            { value: "De carro a stock (UM)", text: "De carro a stock (UM)" },
-            { value: "10. De stock exterior a stock interior (UM)", text: "10. De stock exterior a stock interior (UM)" },
-            { value: "Gestión UMs bacs vacíos (UC)", text: "Gestión UMs bacs vacíos (UC)" },
-            { value: "8. Zipado bacs (UM)", text: "8. Zipado bacs (UM)" },
-            { value: "De carro a estantería (UC)", text: "De carro a estantería (UC)" },
-            { value: "Cambio de UM en puesto (UM)", text: "Cambio de UM en puesto (UM)" },
-            { value: "Nacelle 38 bacs (UC)", text: "Nacelle 38 bacs (UC)" },
-            { value: "Nacelle 34 bacs (UC)", text: "Nacelle 34 bacs (UC)" }
-        ]
-    };
-
     //Configuramos el botón de cerrar del "modalLarge"
     $('#closeModalLarge').on('click', function () {
         //Cerramos el modal
@@ -418,7 +314,7 @@
             }
 
             //Iniciamos la solicitud POST
-            fetch(`/film/api/anyadirEtapa/${puestoID}/${referencia_componente}/${linea}/${operacion_seleccionada}/${cantidad_a_mover_cadena}/${mote}`, {
+            fetch(`/app/api/anyadirEtapa/${puestoID}/${referencia_componente}/${linea}/${operacion_seleccionada}/${cantidad_a_mover_cadena}/${mote}`, {
                 method: "POST"
             })
                 //Controlamos la respuesta
