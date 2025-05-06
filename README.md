@@ -30,4 +30,18 @@ El proyecto está organizado en los siguientes directorios y archivos principale
    cd APP_CARRETILLERO
 
 2. Instala las dependencias:
-npm install
+    ```bash
+    npm install
+
+3. Configura la base de datos:
+    - Crea una base de datos MySQL.
+    - Importa el esquema y los datos iniciales desde el archivo database.sql (si está disponible).
+    - Configura las credenciales de la base de datos en el archivo server.js o en un archivo .env.
+
+4. Inicia el servidor:
+    ```bash
+    npm start
+
+5. Accede a la aplicación en tu navegador:
+    ```bash
+    http://localhost:3000
