@@ -1359,7 +1359,7 @@ function generarTablasPorEtapa(etapas, nombre_etapa) {
 
 
                                         <button id="botonEliminarEtapa" type="button" class="text-red-500 ml-2" 
-                                            onclick="eliminarRegistro(${id_etapa}, 'etapas', ${id_puesto})">
+                                            onclick="eliminarRegistro('etapa_referencia', ${id_etapa}, 'etapas', ${id_puesto})">
                                             <i class="bi bi-trash-fill"></i>
                                         </button>
                                     </h3>
@@ -1450,7 +1450,6 @@ function generarTablasPorEtapa(etapas, nombre_etapa) {
                                         } else {
                                             valor = 1;
                                         }
-                                        etapaDeF.tiempo_distancia_total = ((distancia_total * valor * etapaDeF.cantidad_mover) / 100);
                                         console.log("cantidad_a_mover", etapaDeF)
 
                                         return `

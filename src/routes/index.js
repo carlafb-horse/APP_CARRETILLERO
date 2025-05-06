@@ -1336,7 +1336,7 @@ router.get('/obtenerEtapasAgrupadasPuesto/:id_puesto', (req, res) => {
     
         const query = `
             SELECT 
-                e.id_puesto, o.nombre, o.color, SUM(e.cantidad_mover) AS cantidad_mover, COALESCE(SUM(e.distancia_total), 0) AS distancia_total, SUM(e.PS14) AS PS14, 
+                e.id_puesto, o.nombre, o.color, SUM(e.cantidad_mover) AS cantidad_mover, MAX(COALESCE(e.distancia_total, 0)) AS distancia_total, SUM(e.PS14) AS PS14, 
                 SUM(e.DS10) AS DS10, SUM(e.CDL) AS CDL, SUM(e.CDC) AS CDC, SUM(e.M1) AS M1, SUM(e.PS15) AS PS15, SUM(e.DI21) AS DI21, SUM(e.DC113) AS DC113, 
                 SUM(e.DS14) AS DS14, SUM(e.DS15) AS DS15, SUM(e.DC) AS DC, SUM(e.D1) AS D1, SUM(e.W5) AS W5, SUM(e.TT) AS TT, SUM(e.AL) AS AL, SUM(e.G1) AS G1, 
                 SUM(e.P5) AS P5, MAX(e.numero_picadas) AS numero_picadas, SUM(actividad_minutos_picadas) AS actividad_minutos_picadas, SUM(e.tiempo_distancia_total) AS tiempo_distancia_total
@@ -3222,12 +3222,16 @@ router.put('/actualizarEtapa/:id_puesto/:operacion/:nuevo_valor/:opcion', (req, 
 
             // Recorremos los resultados obtenidos
             selectResult.forEach((row) => {
-                const { id, actividad_minutos, cantidad_mover } = row;
+                const { id, actividad_minutos, cantidad_mover, numero_picadas } = row;
 
                 // Realizamos los cálculos necesarios con el valor de "nuevo"
                 const actividad_minutos_picadas = actividad_minutos / nuevo_valor;
 
-                const tiempo_distancia_total = (nuevo_valor * 0.6 * cantidad_mover)/100
+                const tiempo_distancia_total = (nuevo_valor * 0.6 * cantidad_mover)/100;
+
+                const nueva_actividad_en_minutos = actividad_minutos + tiempo_distancia_total;
+                
+                const nueva_actividad_en_minutos_picadas = nueva_actividad_en_minutos / numero_picadas;
                 
                 let queryUpdate = '', array_argumetos = [];
 
@@ -3249,15 +3253,22 @@ router.put('/actualizarEtapa/:id_puesto/:operacion/:nuevo_valor/:opcion', (req, 
                         UPDATE etapas
                         SET
                             distancia_total = ?,
-                            tiempo_distancia_total = ?
+                            tiempo_distancia_total = ?,
+                            actividad_minutos = ?,
+                            actividad_minutos_picadas = ?
                         WHERE
                             id = ? AND
                             id_puesto = ? AND
                             operacion = ?
                     `;
-                    array_argumetos = [nuevo_valor, tiempo_distancia_total, id, id_puesto, operacion];
+                    array_argumetos = [nuevo_valor, tiempo_distancia_total, nueva_actividad_en_minutos, nueva_actividad_en_minutos_picadas, id, id_puesto, operacion];
                 }
-                console.log("Query generada:", queryUpdate);
+                console.log("Query generada:", queryUpdate, 
+                    "actividad_minutos_picadas:", actividad_minutos_picadas,
+                    "tiempo_distancia_total:", tiempo_distancia_total,
+                    "nueva_actividad_en_minutos:", nueva_actividad_en_minutos,
+                    "nueva_actividad_en_minutos_picadas:", nueva_actividad_en_minutos_picadas
+                );
 
                 // Preparamos la consulta para actualizar cada etapa
                 
