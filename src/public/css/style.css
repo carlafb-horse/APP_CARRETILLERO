@@ -14,10 +14,6 @@ body {
 /* Cambiar el color de los labels dentro de los modales */
 #modal label,
 #modalInformeFinal label,
-#modalPlanta label,
-#modalLarge label,
-#modalInforme label,
-#modalDetalle label,
 #informe-detallado label {
     color: white !important;
 }
@@ -26,12 +22,6 @@ body {
 #modal select,
 #modalInformeFinal input,
 #modalInformeFinal select,
-#modalLarge input,
-#modalLarge select,
-#modalInforme input,
-#modalInforme select,
-#modalDetalle input,
-#modalDetalle select,
 #informe-detallado input,
 #informe-detallado select {
     color: black !important;
@@ -109,14 +99,6 @@ header:hover .navbar-logo {
     color: white;
 }
 
-/* Estilo para el resaltado del puesto */
-.resaltado {
-    animation: fadeInFromLeft 0.5s ease-out;
-    animation-fill-mode: forwards;
-    background-color: rgb(221, 221, 221) !important;
-    border: 2px solid rgb(213, 213, 213) !important;
-    transition: background-color 0.3s, border 0.3s;
-}
 
 /* Estilo para el resaltado de los botones importantes */
 .resaltadoBotones {
@@ -218,14 +200,6 @@ header:hover .navbar-logo {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
     width: 100%;
-}
-
-/* Estilo para el modal del informe */
-#modalInforme {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: rgba(0, 0, 0, 0.5);
 }
 
 /* Estilo para el canvas del contenedor del modal del informe */

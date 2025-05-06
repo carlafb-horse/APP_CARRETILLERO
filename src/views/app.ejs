@@ -107,16 +107,13 @@
 
                     <!-- Parte inferior del contenido principal -->
                     <div class="flex-1 bg-white p-4 rounded-lg shadow">
-                        <h2 class="text-xl font-bold text-black" id="tituloPrincipalEtapasDisponibles">Etapas
-                            disponibles</h2>
-
+                        <h2 class="text-xl font-bold text-black" id="tituloPrincipalEtapasDisponibles">Etapas disponibles</h2>
                         <div id="tablaEtapasGlobal"></div>
                     </div>
                 </main>
             </div>
         </div>
     </body>
-
 </html>
 
 <script>
@@ -214,83 +211,6 @@
             });
         });
     });
-
-    //Creamos una instancia del DropDown de los turnos
-    const dropdown_turnos_opciones = document.querySelectorAll('.dropdown-item');
-
-    //Iteramos por el dropdown de los turnos
-    dropdown_turnos_opciones.forEach(item => {
-        //Creamos un escuchador
-        item.addEventListener('click', function (event) {
-            //Creamos una variable para obtener el dato del turno
-            const turno_seleccionado = event.target.getAttribute('data-turno');
-
-            //Creamos una variable para almacenar el texto del turno
-            let turno;
-
-            //Creamos un switch para controlar el turno seleccionado
-            switch (turno_seleccionado) {
-                case "M":
-                    turno = "Mañana";
-                    break;
-
-                case 'T':
-                    turno = "Tarde";
-                    break;
-
-                case 'N':
-                    turno = "Noche";
-                    break;
-
-                default:
-                    turno = "Todos los turnos"
-                    break;
-            }
-
-            //Creamos una instancia del dropdown
-            const dropdown_turnos = document.getElementById('dropdownTurnos');
-
-            //Cambios el texto del botón del dropdown al turno seleccionado
-            dropdown_turnos.textContent = turno;
-
-            //Llamamos a la función para ocultar/mostrar los puestos dependiendo del turno seleccionado
-            mostrarPuestoTurno(turno_seleccionado);
-        });
-    });
-
-
-    /**
-     * Función para mostrar/ocultar los puestos por el turno seleccionado
-     * */
-    function mostrarPuestoTurno(turno_seleccionado) {
-        console.log("Turno seleccionado: ", turno_seleccionado);
-
-        //Creamos una instancia de los LI
-        const li_elementos = document.querySelectorAll('#graficos-container .glide__slide');
-
-        console.log("LI: ", li_elementos)
-
-        //Recorremos cada li
-        li_elementos.forEach(li => {
-            //Almacenamos el turno del puesto
-            const turno = li.getAttribute('data-turno');
-
-            console.log("Turno: ", turno);
-
-            //Si el usuario selecciona todos los puestos
-            if (turno_seleccionado === 'A') {
-                li.classList.remove('ocultarElemento');
-
-                //Si el turno coincide con el seleccionado o ha seleccionado todos los turnos...
-            } else if (turno === turno_seleccionado) {
-                li.classList.remove('ocultarElemento');
-
-                //En cualquier otro caso...
-            } else {
-                li.classList.add('ocultarElemento');
-            }
-        });
-    }
 </script>
 
 </html>
