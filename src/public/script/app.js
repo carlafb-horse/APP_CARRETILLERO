@@ -414,6 +414,11 @@ function renderizarGrafico() {
 
                             return originalLabels.filter(label => label.text !== 'Puestos').concat([
                                 {
+                                    text: 'Turnos:\n',
+                                    fillStyle: 'rgba(0, 0, 0, 0)',
+                                    lineWidth: 0
+                                },
+                                {
                                     text: 'Mañana',
                                     fillStyle: colores_turnos['M'],
                                     strokeStyle: colores_turnos['M'],
@@ -825,9 +830,6 @@ function disponerTurno(turno, jornadaInicio, jornadaFin) {
     if (turno || jornadaInicio || jornadaFin) {
         //Establecemos el título del modal
         document.getElementById('jornadaLaboralTitle').innerHTML = `Jornada laboral: ${turno_final} ${icono}`;
-
-        //Configuramos el tamaño de la fuente del título
-        document.getElementById('jornadaLaboralTitle').style.fontSize = '18px';
 
         //Establecemos el inicio de la jornada
         document.getElementById('jornadaInicio').innerText = jornadaInicio;
@@ -1960,23 +1962,12 @@ function eliminarRegistro(tipo, id_elemento, tabla, id_puesto) {
         });
 }
 
-
-/**
- * Función para configurar la funcionalidad de la cookie de la planta
- */
-function configurarPlanta() {
-    //En caso de que no haya una cookie con la planta seleccionada
-    document.getElementById('plantaSeleccionada').innerHTML = `
-            <span><h3>Valladolid</span><br><i class="bi bi-house"></i></h3>
-        `;
-}
-
 /**
  * Añadimos la configuación para cuando la página este cargada
  */
 window.addEventListener('DOMContentLoaded', function () {
-    //Llamamos a la función para establecer la planta
-    configurarPlanta();
+    //Establecer la planta
+    document.getElementById('plantaSeleccionada').innerHTML = `<span><h3>Valladolid</span><br><i class="bi bi-house"></i></h3>`;
 
     //Llamamos al método para obtener los puestos
     fetchData();

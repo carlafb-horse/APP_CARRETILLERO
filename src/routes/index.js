@@ -647,7 +647,7 @@ router.put('/actualizarOrden/:array_ordenado', (req, res) => {
 
     let query = `
         UPDATE
-            EN_IFM_STANDARD
+            etapas
         SET
             orden = ?
         WHERE
@@ -715,7 +715,7 @@ router.get('/obtenerEtapasPuesto/:id_puesto/:nombre_etapa', (req, res) => {
                 e.id_puesto = ? 
                 AND e.operacion = ?
             ORDER BY
-                o.nombre;
+                e.orden;
             ;
         `;
 
@@ -855,10 +855,11 @@ router.get('/obtenerEtapasAgrupadasPuesto/:id_puesto', (req, res) => {
 
         const query = `
             SELECT 
-                e.id_puesto, o.nombre, o.color, SUM(e.cantidad_mover) AS cantidad_mover, MAX(COALESCE(e.distancia_total, 0)) AS distancia_total, SUM(e.PS14) AS PS14, 
+                e.id_puesto, o.nombre, o.color, SUM(e.cantidad_mover) AS cantidad_mover, COALESCE(e.distancia_total, 0) AS distancia_total, SUM(e.PS14) AS PS14, 
                 SUM(e.DS10) AS DS10, SUM(e.CDL) AS CDL, SUM(e.CDC) AS CDC, SUM(e.M1) AS M1, SUM(e.PS15) AS PS15, SUM(e.DI21) AS DI21, SUM(e.DC113) AS DC113, 
                 SUM(e.DS14) AS DS14, SUM(e.DS15) AS DS15, SUM(e.DC) AS DC, SUM(e.D1) AS D1, SUM(e.W5) AS W5, SUM(e.TT) AS TT, SUM(e.AL) AS AL, SUM(e.G1) AS G1, 
-                SUM(e.P5) AS P5, MAX(e.numero_picadas) AS numero_picadas, SUM(actividad_minutos_picadas) AS actividad_minutos_picadas, SUM(e.tiempo_distancia_total) AS tiempo_distancia_total
+                SUM(e.P5) AS P5, MAX(e.numero_picadas) AS numero_picadas, SUM(actividad_minutos_picadas) AS actividad_minutos_picadas, 
+                SUM(e.tiempo_distancia_total) AS tiempo_distancia_total, MAX(orden) AS orden
             FROM
                 etapas AS e
             INNER JOIN
@@ -870,7 +871,7 @@ router.get('/obtenerEtapasAgrupadasPuesto/:id_puesto', (req, res) => {
             GROUP BY 
                 e.operacion, e.id_puesto
             ORDER BY
-                o.nombre;
+                e.orden;
         `;
 
 
@@ -972,7 +973,8 @@ router.get('/graficoChimenea/:id_puesto', (req, res) => {
                 e.id_puesto AS id, 
                 o.nombre AS nombre,
                 o.color AS color,
-                SUM(e.actividad_minutos_picadas) AS minutos
+                SUM(e.actividad_minutos_picadas) AS minutos,
+                e.orden
             FROM
                 etapas e 
             INNER JOIN 
@@ -984,7 +986,7 @@ router.get('/graficoChimenea/:id_puesto', (req, res) => {
             GROUP BY 
                 e.operacion, e.id_puesto
             ORDER BY
-                o.nombre;
+                e.orden;
         `;
 
         //Ejecutamos la consulta
