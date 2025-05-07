@@ -113,7 +113,7 @@ router.post('/anyadirPuesto/:numero_puesto/:nombre_puesto/:numero_operarios/:tur
                 }
             });
 
-            function insertarPuesto(){
+            function insertarPuesto() {
                 //Almacenamos en una nueva variable la consulta SQL para añadir el puesto
                 const queryPuesto = `
                     INSERT INTO
@@ -299,7 +299,7 @@ function anyadirEtapa_Operacion(connection, query, data, operacion_seleccionada)
             );
             break;
 
-        
+
         //En caso de que sea "2. De imagen camión a stock"
         case '2. De imagen camión a stock':
             data.push(
@@ -613,17 +613,17 @@ router.post('/anyadirEtapa/:puesto_id/:referencia_embalaje/:operacion_selecciona
             //Obtenemos 
             const cantidad_mover = referencia_embalaje[referencia];
             console.log(`>>> Clave: ${referencia} \tValor: ${cantidad_mover}`);
-            
-            const data = [
-            puesto_id,
-            referencia,
-            cantidad_mover,
-            operacion_seleccionada,
-            numero_picadas
-        ];
 
-        //Llamamos a la función para añadir la etapa
-        anyadirEtapa_Operacion(connection, query, data, operacion_seleccionada);
+            const data = [
+                puesto_id,
+                referencia,
+                cantidad_mover,
+                operacion_seleccionada,
+                numero_picadas
+            ];
+
+            //Llamamos a la función para añadir la etapa
+            anyadirEtapa_Operacion(connection, query, data, operacion_seleccionada);
         }
 
         //Liberamos la conexión después de finalizar todas las operaciones
@@ -718,7 +718,7 @@ router.get('/obtenerEtapas_Puesto/:id_puesto/:nombre_etapa', (req, res) => {
                 o.nombre;
             ;
         `;
-        
+
 
         //Ejecutamos la consulta
         connection.query(query, [id_puesto, nombre_etapa], (error, results) => {
@@ -852,7 +852,7 @@ router.get('/obtenerEtapasAgrupadasPuesto/:id_puesto', (req, res) => {
         }
 
         //Almacenamos en una variable la consulta SQL
-    
+
         const query = `
             SELECT 
                 e.id_puesto, o.nombre, o.color, SUM(e.cantidad_mover) AS cantidad_mover, MAX(COALESCE(e.distancia_total, 0)) AS distancia_total, SUM(e.PS14) AS PS14, 
@@ -872,7 +872,7 @@ router.get('/obtenerEtapasAgrupadasPuesto/:id_puesto', (req, res) => {
             ORDER BY
                 o.nombre;
         `;
-        
+
 
         //Ejecutamos la consulta
         connection.query(query, [id_puesto], (error, results) => {
@@ -1065,11 +1065,11 @@ router.delete('/eliminarRegistro/:id_elemento/:tabla/:id_puesto', (req, res) => 
         if (err) {
             res.status(500).send()
         }
-        
+
         let control = Number(id_elemento), query, array_argumetos;
 
         if (tabla === "etapas") {
-            if(!isNaN(control)){
+            if (!isNaN(control)) {
                 query = `
                     DELETE 
                     FROM
@@ -1078,7 +1078,7 @@ router.delete('/eliminarRegistro/:id_elemento/:tabla/:id_puesto', (req, res) => 
                         id = ?
                 `;
                 array_argumetos = [id_elemento];
-            } else if(isNaN(control)){
+            } else if (isNaN(control)) {
                 query = `
                     DELETE 
                     FROM
@@ -1170,7 +1170,7 @@ router.get('/comprobarReferencias/:referencias', (req, res) => {
     //Almacenamos en un array las referencias obtenidas
     const array_referencias = referencias.split(' ');
     const referencias_juntas = array_referencias.map(ref => `'${ref}'`).join(', ');
-    
+
 
     //Creamos un nuevo arrray filtrado por referencias únicas
     const array_referencias_finales = [...array_referencias];
@@ -1388,7 +1388,7 @@ router.get('/obtener-referencias/:id_puesto', (req, res) => {
 
             let op, simbolo;
 
-            if(turno === 'N'){
+            if (turno === 'N') {
                 op = 'OR';
                 simbolo = '';
             } else {
@@ -1508,7 +1508,7 @@ router.get('/obtenerDatos/:referencia/:puesto_id', (req, res) => {
         WHERE p.id = ?;
     `;
 
-    
+
     //Conexión a la BD
     getDBConnection((err, connection) => {
         if (err) {
@@ -1531,7 +1531,7 @@ router.get('/obtenerDatos/:referencia/:puesto_id', (req, res) => {
 
             let op, simbolo;
 
-            if(turno === 'N'){
+            if (turno === 'N') {
                 op = 'OR';
                 simbolo = '';
             } else {
@@ -1624,16 +1624,16 @@ router.put('/actualizarEtapa/:id_puesto/:operacion/:nuevo_valor/:opcion', (req, 
                 // Realizamos los cálculos necesarios con el valor de "nuevo"
                 const actividad_minutos_picadas = actividad_minutos / nuevo_valor;
 
-                const tiempo_distancia_total = (nuevo_valor * 0.6 * cantidad_mover)/100;
+                const tiempo_distancia_total = (nuevo_valor * 0.6 * cantidad_mover) / 100;
 
                 const nueva_actividad_en_minutos = actividad_minutos + tiempo_distancia_total;
-                
+
                 const nueva_actividad_en_minutos_picadas = nueva_actividad_en_minutos / numero_picadas;
-                
+
                 let queryUpdate = '', array_argumetos = [];
 
 
-                if(opcion == 1){
+                if (opcion == 1) {
                     queryUpdate = `
                         UPDATE etapas
                         SET
@@ -1645,7 +1645,7 @@ router.put('/actualizarEtapa/:id_puesto/:operacion/:nuevo_valor/:opcion', (req, 
                             operacion = ?
                     `;
                     array_argumetos = [nuevo_valor, actividad_minutos_picadas, id, id_puesto, operacion];
-                } else if(opcion == 2){
+                } else if (opcion == 2) {
                     queryUpdate = `
                         UPDATE etapas
                         SET
@@ -1660,7 +1660,7 @@ router.put('/actualizarEtapa/:id_puesto/:operacion/:nuevo_valor/:opcion', (req, 
                     `;
                     array_argumetos = [nuevo_valor, tiempo_distancia_total, nueva_actividad_en_minutos, nueva_actividad_en_minutos_picadas, id, id_puesto, operacion];
                 }
-                console.log("Query generada:", queryUpdate, 
+                console.log("Query generada:", queryUpdate,
                     "actividad_minutos_picadas:", actividad_minutos_picadas,
                     "tiempo_distancia_total:", tiempo_distancia_total,
                     "nueva_actividad_en_minutos:", nueva_actividad_en_minutos,
@@ -1668,12 +1668,12 @@ router.put('/actualizarEtapa/:id_puesto/:operacion/:nuevo_valor/:opcion', (req, 
                 );
 
                 // Preparamos la consulta para actualizar cada etapa
-                
+
 
                 // Ejecutamos la consulta UPDATE para cada etapa individualmente
                 connection.query(queryUpdate, array_argumetos, (updateError, updateResult) => {
                     console.log('QUERY ACTUALIZAR ETAPA >>>> ', connection.format(queryUpdate, array_argumetos));
-                    
+
                     console.log('> RESULTADOS ACTUALIZAR ETAPA: ', updateResult);
 
                     if (updateError) {

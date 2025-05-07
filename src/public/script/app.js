@@ -376,7 +376,7 @@ function renderizarGrafico() {
 
     console.log("turnos ", turnos)
 
-    const media = (conteos_controlados.reduce((a, b) => a + b, 0))/conteos_controlados.length
+    const media = (conteos_controlados.reduce((a, b) => a + b, 0)) / conteos_controlados.length
 
     //Gráfico principal
     const chartBarras = new Chart(ctxBarras, {
@@ -411,7 +411,7 @@ function renderizarGrafico() {
                         boxWidth: 20,
                         generateLabels: (chart) => {
                             const originalLabels = Chart.defaults.plugins.legend.labels.generateLabels(chart);
-                            
+
                             return originalLabels.filter(label => label.text !== 'Puestos').concat([
                                 {
                                     text: 'Mañana',
@@ -519,7 +519,7 @@ function renderizarGrafico() {
                     return;
                 }
 
-            
+
                 //En caso de que se haga clic cerca de un label
                 const xAxis = chartBarras.scales.x;
                 console.log("y: ", y, " x:", x);
@@ -542,7 +542,7 @@ function renderizarGrafico() {
         },
         plugins: [{
             id: 'lineaMedia',
-            afterDraw: function(chart) {
+            afterDraw: function (chart) {
                 const { ctx, chartArea: { left, right }, scales: { y } } = chart;
                 const yPos = y.getPixelForValue(media);
 
@@ -669,7 +669,7 @@ function seleccionarPuesto(index, id_puestos, nombre_puestos, conteos, contenedo
     //Almmacenamos en la variable el ID del puesto
     puestoID = id_puesto;
 
-    
+
 
     //Variable con los datos necesarios para disponer la información del puesto
     const datasets = conteoGraficoChimenea.map((item) => ({
@@ -1130,52 +1130,52 @@ function generarTablasPorEtapa(etapas, nombre_etapa) {
                                             </thead>
                                             <tbody>
                                 ${etapasData.map(etapa => {
-                                    console.log("ETAPAaaaa: ", etapa)
-                                    let distanceValue = etapa.tiempo || 0, tiempoCalculado = 0;
+                                console.log("ETAPAaaaa: ", etapa)
+                                let distanceValue = etapa.tiempo || 0, tiempoCalculado = 0;
 
-                                        if (etapa.simbolo === 'PS14') {
-                                            tiempoCalculado = PS14;
-                                        } else if (etapa.simbolo === 'DS10') {
-                                            tiempoCalculado = DS10;
-                                        } else if (etapa.simbolo === 'CDL') {
-                                            tiempoCalculado = CDL;
-                                        } else if (etapa.simbolo === 'M1') {
-                                            tiempoCalculado = M1;
-                                        } else if (etapa.simbolo === 'DC113') {
-                                            tiempoCalculado = DC113;
-                                        } else if (etapa.simbolo === 'CDC') {
-                                            tiempoCalculado = CDC;
-                                        } else if (etapa.simbolo === 'PS15') {
-                                            tiempoCalculado = PS15;
-                                        } else if (etapa.simbolo === 'DI21') {
-                                            tiempoCalculado = DI21;
-                                        } else if (etapa.simbolo === 'DS14') {
-                                            tiempoCalculado = DS14;
-                                        } else if (etapa.simbolo === 'DS15') {
-                                            tiempoCalculado = DS15;
-                                        } else if (etapa.simbolo === 'DC') {
-                                            tiempoCalculado = DC;
-                                        } else if (etapa.simbolo === 'D1') {
-                                            tiempoCalculado = D1;
-                                        } else if (etapa.simbolo === 'W5') {
-                                            tiempoCalculado = W5;
-                                        } else if (etapa.simbolo === 'TT') {
-                                            tiempoCalculado = TT;
-                                        } else if (etapa.simbolo === 'AL') {
-                                            tiempoCalculado = AL;
-                                        } else if (etapa.simbolo === 'G1') {
-                                            tiempoCalculado = G1;
-                                        } else if (etapa.simbolo === 'P5') {
-                                            tiempoCalculado = P5
-                                        } else if (etapa.simbolo === 'W5_2') {
-                                            tiempoCalculado = W5_2;
-                                        } else if (etapa.simbolo === "TT_2") {
-                                            tiempoCalculado = TT_2;
-                                        }
+                                if (etapa.simbolo === 'PS14') {
+                                    tiempoCalculado = PS14;
+                                } else if (etapa.simbolo === 'DS10') {
+                                    tiempoCalculado = DS10;
+                                } else if (etapa.simbolo === 'CDL') {
+                                    tiempoCalculado = CDL;
+                                } else if (etapa.simbolo === 'M1') {
+                                    tiempoCalculado = M1;
+                                } else if (etapa.simbolo === 'DC113') {
+                                    tiempoCalculado = DC113;
+                                } else if (etapa.simbolo === 'CDC') {
+                                    tiempoCalculado = CDC;
+                                } else if (etapa.simbolo === 'PS15') {
+                                    tiempoCalculado = PS15;
+                                } else if (etapa.simbolo === 'DI21') {
+                                    tiempoCalculado = DI21;
+                                } else if (etapa.simbolo === 'DS14') {
+                                    tiempoCalculado = DS14;
+                                } else if (etapa.simbolo === 'DS15') {
+                                    tiempoCalculado = DS15;
+                                } else if (etapa.simbolo === 'DC') {
+                                    tiempoCalculado = DC;
+                                } else if (etapa.simbolo === 'D1') {
+                                    tiempoCalculado = D1;
+                                } else if (etapa.simbolo === 'W5') {
+                                    tiempoCalculado = W5;
+                                } else if (etapa.simbolo === 'TT') {
+                                    tiempoCalculado = TT;
+                                } else if (etapa.simbolo === 'AL') {
+                                    tiempoCalculado = AL;
+                                } else if (etapa.simbolo === 'G1') {
+                                    tiempoCalculado = G1;
+                                } else if (etapa.simbolo === 'P5') {
+                                    tiempoCalculado = P5
+                                } else if (etapa.simbolo === 'W5_2') {
+                                    tiempoCalculado = W5_2;
+                                } else if (etapa.simbolo === "TT_2") {
+                                    tiempoCalculado = TT_2;
+                                }
 
-                                        console.log("cantidad_a_mover", etapaDeF)
+                                console.log("cantidad_a_mover", etapaDeF)
 
-                                        return `
+                                return `
                                     <tr>
                                         <td class="px-4 py-2 border">${etapa.nombre_metodo}</td>
                                         <td class="px-4 py-2 border">${etapa.simbolo}</td>
@@ -1184,7 +1184,7 @@ function generarTablasPorEtapa(etapas, nombre_etapa) {
                                         <td class="px-4 py-2 border">${Number(tiempoCalculado).toFixed(2)}</td>
                                     </tr>
                                 `;
-                                    }).join('')}
+                            }).join('')}
                             
                                                 <tr>
                                                     <td class="px-4 py-2 border font-semibold" rowspan="2">Distancia</td>
@@ -1344,7 +1344,7 @@ function inicializarVariablesEtapas(etapaDeF) {
     const actividad_minutos = etapaDeF.actividad_minutos ? etapaDeF.actividad_minutos : '0';
     const actividad_minutos_picadas = etapaDeF.actividad_minutos_picadas ? etapaDeF.actividad_minutos_picadas : '0';
     const tiempo_distancia_total = etapaDeF.tiempo_distancia_total ? etapaDeF.tiempo_distancia_total : '0';
-    
+
     //Devolvemos las variables
     return { referenciaComponente, id_etapa, nombre_etapa, distancia_total, PS14, DS10, CDL, M1, DC113, CDC, PS15, DI21, DS14, DS15, DC, D1, W5, W5_2, TT, TT_2, AL, G1, P5, num_picadas, actividad_minutos, actividad_minutos_picadas, tiempo_distancia_total };
 }
@@ -1574,7 +1574,7 @@ function anyadirEtapa(id_puesto, operacion, num_picadas) {
             const picadasSelect = document.getElementById('numeroPicadas');
             picadasSelect.value = num_picadas; // Establecemos el valor del numero de picadas seleccionado
 
-            
+
             opcion = 2;
         }
 
@@ -1698,11 +1698,11 @@ function anyadirEtapaFinal(id_puesto, operacion_seleccionada, num_picadas, numer
     //Serializamos el diccionario con las referencias y el número de embalahjes
     referencia_embalaje = encodeURIComponent(JSON.stringify(referencia_embalaje));
 
-    if(id_puesto){
+    if (id_puesto) {
         puestoID = id_puesto;
     }
-    
-    if(num_picadas){
+
+    if (num_picadas) {
         numero_picadas = num_picadas;
     }
 
@@ -1788,7 +1788,7 @@ function subirEtapa(id_puesto, operacion, num_picadas, opcion) {
     //Serializamos el diccionario con las referencias y el número de embalajes
     referencia_embalaje = encodeURIComponent(JSON.stringify(referencias_finales));
 
-    if(operacion){
+    if (operacion) {
         operacion_seleccionada = operacion;
     }
 
@@ -1821,7 +1821,7 @@ function subirEtapa(id_puesto, operacion, num_picadas, opcion) {
             anyadirEtapaFinal(id_puesto, operacion_seleccionada, num_picadas);
         })
         .finally(() => {
-            if(opcion === 2){
+            if (opcion === 2) {
                 mostrarAlerta("Etapa/s creada/s", null, null, 1);
             } else {
                 //Alerta
@@ -1843,7 +1843,7 @@ function subirEtapa(id_puesto, operacion, num_picadas, opcion) {
                             if (result.isConfirmed) {
                                 // Si confirma, abrir el modal para añadir la distancia
                                 editarDistancia(id_puesto, operacion_seleccionada)
-                            } else if (!result.isConfirmed){
+                            } else if (!result.isConfirmed) {
                                 window.location.reload();
                             } else {
                                 Swal.close();
@@ -1852,7 +1852,7 @@ function subirEtapa(id_puesto, operacion, num_picadas, opcion) {
                     }
                 });
             }
-            
+
         });
 }
 
@@ -1945,7 +1945,7 @@ function editarDistancia(id_puesto, operacion) {
 
         //Mostramos el modal
         $('#modal').modal('show');
-    
+
 
         $('#actualizarEtapa').on('submit', async function (e) {
             //Paramos la propagación
@@ -1974,7 +1974,7 @@ function editarDistancia(id_puesto, operacion) {
         });
     }
 
-    
+
 }
 
 
