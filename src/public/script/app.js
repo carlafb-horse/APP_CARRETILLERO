@@ -47,7 +47,7 @@ async function fetchData() {
     /**Obtenemos el conteo de Fs */
     try {
         //Almacenamos en una variable la respuesta a la llamada al end point para obtener el conteo de Fs
-        const response = await fetch('/app/api/conteoFs');
+        const response = await fetch('/app/api/conteoEtapas');
 
         //Controlamos la respuesta
         if (!response.ok) {
@@ -1011,7 +1011,7 @@ function toggleEtapas(id_puesto, nombre_etapa) {
 function generarTablasPorPuesto(puestoID, nombre_etapa) {
     console.log("puesto: ", puestoID, nombre_etapa)
     //Iniciamos la solicitud GET para obtener las etapas de un puesto
-    fetch(`/app/api/obtenerEtapas_Puesto/${puestoID}/${nombre_etapa}`, {
+    fetch(`/app/api/obtenerEtapasPuesto/${puestoID}/${nombre_etapa}`, {
         method: "GET"
     })
         //Controlamos la respuesta
@@ -1065,7 +1065,7 @@ function generarTablasPorEtapa(etapas, nombre_etapa) {
         const id_puesto = etapasDeF[0].id_puesto;
 
         //Creamos una solicitud para obtener los datos de las etapas
-        fetch(`/app/api/obtenerEtapas/${encodeURIComponent(FKey)}`, {
+        fetch(`/app/api/obtenerMetodos/${encodeURIComponent(FKey)}`, {
             method: "GET"
         })
             .then(response => {
@@ -1083,7 +1083,7 @@ function generarTablasPorEtapa(etapas, nombre_etapa) {
 
 
                     //Preparamos la petición GET para obtener el conteos de UM
-                    fetch(`/app/api/conteoUM/${referenciaComponente}`, {
+                    fetch(`/app/api/conteoEmbalajes/${referenciaComponente}`, {
                         method: "GET"
                     })
                         //Controlamos la respuesta
@@ -1368,7 +1368,7 @@ function buscadorReferencias(puesto_id) {
     console.log("Dentro de la función")
 
     //Preparamos la petición GET para obtener las referencias y disponerlas en un modal dependiendo de la operación y del turno del puesto
-    fetch(`/app/api/obtener-referencias/${puesto_id}}`, {
+    fetch(`/app/api/obtenerReferencias/${puesto_id}}`, {
         method: "GET"
     })
         .then(response => {
@@ -1635,62 +1635,6 @@ function anyadirEtapa(id_puesto, operacion, num_picadas) {
     }
 }
 
-
-/**
- * Función para obtener el valor de la carga
- * @param {String} item Argumento que contiene la referencia
- * @param {int} cantidad_a_expedir Argumento que contiene la cantidad a expedir de dicha referencia
- * @param {String} tipo_operacion Argumento que contiene el tipo de la operación
- * @param {String} tipo_carga Argumento que contiene el tipo de carga
- */
-/*function obtenerValorCarga(item, cantidad_a_expedir, tipo_operacion, tipo_carga) {
-    console.log("Referencia: ", item)
-
-    //Preparamos la petición GET
-    fetch(`/app/api/obtenerEmbalajes/${item}`, {
-        method: "GET"
-    })
-        //Controlamos la respuesta
-        .then(response => {
-            //En caso de que no haya salido bien
-            if (!response.ok) {
-                //Llamamos a la función para mostrar la alerta para informar al usuario
-                mostrarAlerta('Error al obtener el valor de la carga', 'La referencia no pertenece al turno del puesto', 'error', 0);
-            }
-
-            //Devolvemos los datos
-            return response.json();
-        })
-
-        //Controlamos los datos
-        .then(data => {
-            //Almacenamos en una variable el número de embalajes redondeado a la alta
-            const numero_embalajes = data.cantidad
-
-            let valor_carga;
-
-            console.log("Numero de embalajes: ", numero_embalajes, "\tValor de carga: ", valor_carga, "\tCantidad a expedir: ", cantidad_a_expedir)
-
-            console.log("\n>>>>>> Item: ", item, "\tNumero embalaje: ", numero_embalajes)
-
-            const referencia_embalaje_datos = {}
-
-            //Añadimos las referencias junto a sus numeros de embalajes en el diccionario
-            referencia_embalaje_datos[item] = numero_embalajes;
-
-            //Almacenamos en la variable global el diccionario de las referencias junto al numero de embalajes
-            referencia_embalaje = referencia_embalaje_datos;
-
-            //Llamamos a la función para añdir la etapa
-            anyadirEtapaFinal(numero_embalajes);
-        })
-
-        .finally(() => {
-            //Llamamos a la función para recargar la página
-            mostrarAlerta("Etapa/s creada/s", null, null, 1);
-        });
-}*/
-
 /**
  * Función para añadir la etapa
  */
@@ -1798,7 +1742,7 @@ function subirEtapa(id_puesto, operacion, num_picadas, opcion) {
 
     console.log("REF: ", referenciasQuery);
 
-    fetch(`/app/api/obtenerDatos/${referenciasQuery}/${puestoID}`, {
+    fetch(`/app/api/obtenerEmbalajes/${referenciasQuery}/${puestoID}`, {
         method: "GET"
     })
         .then(response => {

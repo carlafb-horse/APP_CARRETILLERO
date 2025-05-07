@@ -67,7 +67,7 @@ Rutas Backend (src/routes/index.js)
 
 #### 2. Visualización de Datos
 - GET /graficoChimenea/:id_puesto
-- GET /conteoUM/:referencia_componente
+- GET /conteoEmbalajes/:referencia_componente
 
 #### 3. Gestión de Referencias
 - GET /comprobarReferencias/:referencias
@@ -75,7 +75,7 @@ Rutas Backend (src/routes/index.js)
 
 #### 4. Otros
 - GET /fechaTomaDatos
-- GET /obtenerDatos/:referencia/:puesto_id
+- GET /obtenerEmbalajes/:referencia/:puesto_id
 
 
 ## Archivos Clave

@@ -689,7 +689,7 @@ router.put('/actualizarOrden/:array_ordenado', (req, res) => {
 /**
  * End point para obtener las etapas de un puesto
  */
-router.get('/obtenerEtapas_Puesto/:id_puesto/:nombre_etapa', (req, res) => {
+router.get('/obtenerEtapasPuesto/:id_puesto/:nombre_etapa', (req, res) => {
     //Almacenamos el ID del puesto
     let { id_puesto, nombre_etapa } = req.params;
 
@@ -706,9 +706,9 @@ router.get('/obtenerEtapas_Puesto/:id_puesto/:nombre_etapa', (req, res) => {
                 e.*,
                 o.nombre
             FROM
-                etapas AS e
+                etapas e
             INNER JOIN
-                operaciones AS o
+                operaciones o
             ON 
                 e.operacion = o.nombre
             WHERE 
@@ -747,7 +747,7 @@ router.get('/obtenerEtapas_Puesto/:id_puesto/:nombre_etapa', (req, res) => {
 /**
  * End point para obtener el conteo de todas las etapas disponibles
  */
-router.get("/conteoFs", (req, res) => {
+router.get("/conteoEtapas", (req, res) => {
     //Creamos la conexión a la base de datos
     getDBConnection((err, connection) => {
         //En caso de que se produzca un error
@@ -786,10 +786,10 @@ router.get("/conteoFs", (req, res) => {
 });
 
 /**
- * End point para obtener las etapas usando el F
+ * End point para obtener los métodos de una operación
  */
-router.get(`/obtenerEtapas/:operacion`, (req, res) => {
-    //Almacenamos en una variable el F
+router.get(`/obtenerMetodos/:operacion`, (req, res) => {
+    //Almacenamos en una variable la operacion
     const operacion = req.params.operacion;
 
     //Creamos la conexión a la base de datos
@@ -953,7 +953,7 @@ router.get('/obtenerPuestos', (req, res) => {
 
 
 /**
- * End point para obtener los datos de: dinámico - No VA //dinámico - VA //estático - VA
+ * End point para obtener los datos de la saturación de cada etapa de un puesto
  */
 router.get('/graficoChimenea/:id_puesto', (req, res) => {
     //Almacenamos en una variable el ID del puesto
@@ -973,10 +973,10 @@ router.get('/graficoChimenea/:id_puesto', (req, res) => {
                 o.nombre AS nombre,
                 o.color AS color,
                 SUM(e.actividad_minutos_picadas) AS minutos
-            FROM 
-                etapas AS e 
+            FROM
+                etapas e 
             INNER JOIN 
-                operaciones AS o 
+                operaciones o 
             ON 
                 e.operacion = o.nombre 
             WHERE 
@@ -1010,9 +1010,9 @@ router.get('/graficoChimenea/:id_puesto', (req, res) => {
 
 
 /**
- * End point para obtener la cantidad de UM a mover usando la referencia del componente
+ * End point para obtener la cantidad de embalajes a mover usando la referencia del componente
  */
-router.get('/conteoUM/:referencia_componente', (req, res) => {
+router.get('/conteoEmbalajes/:referencia_componente', (req, res) => {
     //Almacenamos la referencia del componente de los parametros
     const referencia_componente = req.params.referencia_componente;
 
@@ -1051,7 +1051,7 @@ router.get('/conteoUM/:referencia_componente', (req, res) => {
 
 
 /**
- * End point para eliminar un registros en especifico
+ * End point para eliminar un registro en especifico
  */
 router.delete('/eliminarRegistro/:id_elemento/:tabla/:id_puesto', (req, res) => {
     /** Almacenamos las variables de los parámetros */
@@ -1216,7 +1216,6 @@ router.get('/comprobarReferencias/:referencias', (req, res) => {
 });
 
 
-
 /**
  * End point para obtener el turno del puesto
  */
@@ -1231,11 +1230,11 @@ router.get('/obtenerTurno/:puesto_id', (req, res) => {
         SELECT 
             t.turno, t.jornada_inicio, t.jornada_fin 
         FROM
-            puestos p
-        INNER JOIN
             turnos t
+        INNER JOIN
+            puestos p
         ON
-            p.id_turno = t.id
+            t.id = p.id_turno
         WHERE 
             p.id = ?
     `;
@@ -1271,75 +1270,11 @@ router.get('/obtenerTurno/:puesto_id', (req, res) => {
     });
 });
 
-/**
- * End point para obtener el número de embalajes
- */
-/*router.get('/obtenerEmbalajes/:referencia', (req, res) => {
-    //Almacenamos en variables los parámetros
-    const { referencia } = req.params;
-
-    const referenciasArray = referencia.split(',');
-
-    //Creamos una variable para almacenar el nombre de la columna
-    let columna = "", columna_fabrica = "";
-
-    //Almacenamos en una variable la consulta SQL
-    const query = `
-        SELECT
-            referencia_componente, SUM(cantidad) as cantidad
-        FROM
-            embalajes
-        WHERE
-            referencia_componente IN (?)
-        GROUP BY
-            referencia_componente;
-    `;
-
-
-    //Creamos la conexión a la base de datos
-    getDBConnection((err, connection) => {
-        //En caso de que ocurra algun error...
-        if (err) {
-            console.error("> Se ha producido un error a la hora de conectarse a la base de datos: ", err);
-            res.status(501).send("Error a la hora de establecer la conexión");
-        }
-
-        //Ejecutamos la consulta
-        connection.query(query, [referenciasArray], (error, result) => {
-            console.log(">>>>> OBTENER EMBALAJES\n", connection.format(query, [referenciasArray]));
-
-            //Liberamos la conexión
-            connection.release();
-
-            //En caso de que se produzca algun error
-            if (error) {
-                console.error("> Error en la consulta: ", error);
-
-                //Devolvemos el status
-                return res.status(501).send('Error a la hora de obtener el valor del tipo de carga: ', error);
-
-            } else {
-                //En caso de que no haya valor de carga
-                if (result.length === 0 || result[0].cantidad === undefined) {
-                    //Enviamos ek status
-                    return res.status(501).send('No se encontró el valor de carga');
-
-                    //En otro caso...
-                } else {
-                    //Enviamos la información
-                    console.log("> Results: ", result);
-
-                    return res.json({ cantidad: result[0].cantidad });
-                }
-            }
-        });
-    });
-});*/
 
 /**
  * End point para obtener las referencias disponibles para disponerlas en el modal de buscador de referencias
  */
-router.get('/obtener-referencias/:id_puesto', (req, res) => {
+router.get('/obtenerReferencias/:id_puesto', (req, res) => {
     //Almacenamos en variables los parámetros
     const { id_puesto } = req.params;
 
@@ -1490,7 +1425,7 @@ router.get('/obtener-referencias/:id_puesto', (req, res) => {
 /**
  * End ponint para obtener los datos para subir la etapa a un puesto
  */
-router.get('/obtenerDatos/:referencia/:puesto_id', (req, res) => {
+router.get('/obtenerEmbalajes/:referencia/:puesto_id', (req, res) => {
     //Almacenamos los datos de los parámetros
     const { referencia, puesto_id } = req.params;
 
