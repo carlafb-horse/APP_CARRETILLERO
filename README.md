@@ -1,12 +1,17 @@
-# APP_CARRETILLERO
+# APP CARRETILLERO
 
 ## Descripción del Proyecto
 
-APP_CARRETILLERO es una aplicación diseñada para gestionar y optimizar las operaciones logísticas relacionadas con el manejo de carretillas en un entorno industrial. La aplicación permite a los usuarios gestionar etapas operativas, visualizar gráficos de rendimiento, y realizar un seguimiento detallado de las referencias y operaciones realizadas en diferentes puestos.
+**'APP CARRETILLERO'** es una solución integral diseñada para gestionar y optimizar las operaciones logísticas relacionadas con el manejo de carretillas en entornos industriales. Este proyecto tiene como objetivo principal mejorar la eficiencia operativa, reducir los tiempos de inactividad y proporcionar una visión clara y detallada de las actividades realizadas en cada puesto de trabajo.
 
-El proyecto incluye una interfaz de usuario interactiva y un backend robusto que se conecta a una base de datos para almacenar y procesar datos en tiempo real.
+La aplicación permite a los usuarios gestionar las etapas operativas de manera eficiente, proporcionando herramientas para añadir, editar y eliminar etapas según las necesidades del flujo de trabajo. Además, incluye funcionalidades avanzadas para la visualización de datos mediante gráficos interactivos que ayudan a identificar cuellos de botella, analizar la saturación de los puestos y evaluar el rendimiento general.
 
----
+El backend de la aplicación está construido sobre una arquitectura que utiliza Node.js y Express.js para manejar las solicitudes y MySQL como base de datos para almacenar y procesar grandes volúmenes de datos en tiempo real. Por otro lado, el frontend está diseñado con TailwindCSS y librerías de JavaScript para garantizar una experiencia de usuario fluida e intuitiva.
+
+Esta aplicaicón no solo facilita la gestión de referencias y operaciones, sino que también permite a los usuarios realizar un seguimiento detallado de las actividades, asegurando que cada etapa del proceso logístico esté documentada y optimizada.
+
+En resumen, **'APP CARRETILLERO'** es una herramienta que combina tecnología con un diseño enfocado a facilitar la experiencia del usuario, ayudando a transformar y mejorar la forma en que se gestionan las operaciones logísticas relacionadas con el manejo de carretillas.
+
 
 ## Estructura del Proyecto
 
@@ -28,11 +33,9 @@ El proyecto está organizado en los siguientes directorios y archivos principale
    ```bash
    git clone https://github.com/tu-usuario/APP_CARRETILLERO.git
    cd APP_CARRETILLERO
-
 2. Instala las dependencias:
     ```bash
     npm install
-
 3. Configura la base de datos:
     - Crea una base de datos MySQL.
     - Importa el esquema y los datos iniciales desde el archivo database.sql (si está disponible).
@@ -41,7 +44,6 @@ El proyecto está organizado en los siguientes directorios y archivos principale
 4. Inicia el servidor:
     ```bash
     npm start
-
 5. Accede a la aplicación en tu navegador:  
     http://localhost:3000
 

@@ -17,6 +17,7 @@ const pool = mysql.createPool({
     port: 3306
 });
 
+
 /**
  * Función para obtener una conexión del pool
  * @param {*} callback La función de callback a ejecutar.
@@ -35,15 +36,14 @@ function getDBConnection(callback) {
 /**
  * End point para añadir un nuevo puesto
  */
-router.post('/anyadirPuesto/:numero_puesto/:nombre_puesto/:numero_operarios/:turno/:planta', (req, res) => {
+router.post('/anyadirPuesto/:numero_puesto/:nombre_puesto/:numero_operarios/:turno', (req, res) => {
     //Almacenamos los valores del formulario
-    const { numero_puesto, nombre_puesto, numero_operarios, turno, planta } = req.params;
+    const { numero_puesto, nombre_puesto, numero_operarios, turno } = req.params;
     console.log(
         "Puesto: ", numero_puesto,
         "\nNombre puesto: ", nombre_puesto,
         "\nNúmero operarios: ", numero_operarios,
-        "\nTurno: ", turno,
-        "\nPlanta: ", planta
+        "\nTurno: ", turno
     );
 
     //Controlamos los valores de los campos necesarios

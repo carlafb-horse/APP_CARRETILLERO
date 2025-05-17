@@ -1080,7 +1080,7 @@ function generarTablasPorEtapa(etapas, nombre_etapa) {
                 let color_etapa = etapasData[0].color.replace('0.6', '0.4');
                 console.log("COLOR: ", color_etapa)
                 etapasDeF.forEach((etapaDeF) => {
-                    /** Almacenamos las variable necesarias */
+                    // Almacenamos las variable necesarias
                     var { referenciaComponente, nombre_etapa, id_etapa, distancia_total, PS14, DS10, CDL, M1, DC113, CDC, PS15, DI21, DS14, DS15, DC, D1, W5, TT, AL, G1, P5, TT_2, W5_2, actividad_minutos, actividad_minutos_picadas, tiempo_distancia_total } = inicializarVariablesEtapas(etapaDeF);
 
 

@@ -170,11 +170,12 @@
 
                 //Añadimos la funcionalidad al formulario después de que ha sido creado
                 $('#formulario_anyadirPuesto').on('submit', function (e) {
+                    console.log("AÑADIENDO PUESTO");
                     //Paramos la propagación
                     e.preventDefault();
 
                     //Iniciamos la solicitud POST
-                    fetch(`/app/api/anyadirPuesto/${document.getElementById('numero_puesto').value}/${document.getElementById('nombre_puesto').value}/${document.getElementById('numero_operarios').value}/${document.getElementById('turno').value}/${planta}`, {
+                    fetch(`/app/api/anyadirPuesto/${document.getElementById('numero_puesto').value}/${document.getElementById('nombre_puesto').value}/${document.getElementById('numero_operarios').value}/${document.getElementById('turno').value}`, {
                         method: "POST"
                     })
                         //Controlamos la respuesta
