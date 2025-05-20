@@ -217,7 +217,7 @@ function renderizarGrafico() {
     //Funcionalidad para eliminar un puesto
     boton_eliminar_puesto.addEventListener('click', () => {
         //Llamamos al método para disponer la alerta de confirmación de elemento
-        confirmarEliminar("question", "Vas a eliminar este puesto... ¿Estas seguro de lo que vas hacer?", puestoID, "puestos");
+        confirmarEliminar("question", "Vas a eliminar este puesto... ¿Quieres continuar?", puestoID, "puestos", puestoID, 'puesto');
     });
 
     //Añadimos el botón al contenedor
@@ -625,7 +625,7 @@ function creacionBotones(contenedor_botones) {
     botonEliminarPuesto.className = "bg-red-600 text-white py-1 px-2 rounded hover:bg-red-500 transition duration-300";
     botonEliminarPuesto.setAttribute('data-id', puestoID)
     botonEliminarPuesto.onclick = () => {
-        confirmarEliminar("question", "Vas a eliminar este puesto... ¿Estas seguro de lo que vas hacer?", puestoID, "puestos");
+        confirmarEliminar("question", "Vas a eliminar este puesto... ¿Quieres continuar?", puestoID, "puestos", puestoID, 'puesto');
     };
     contenedor_botones.appendChild(botonEliminarPuesto);
 
@@ -837,7 +837,8 @@ function disponerTurno(turno, jornadaInicio, jornadaFin) {
  * @param {String} tabla Argumento que contiene el nombre de la tabla
  * @param {int} id_puesto Argumento que contiene el ID del puesto
  */
-function confirmarEliminar(icono, titulo, id, tabla, id_puesto) {
+function confirmarEliminar(icono, titulo, id, tabla, id_puesto, tipo) {
+    console.log("id:", id, "tabla", tabla, "id_puesto", id_puesto, "tipo", tipo)
     //Configuramos y mostramos la alerta
     Swal.fire({
         title: titulo,
@@ -850,7 +851,7 @@ function confirmarEliminar(icono, titulo, id, tabla, id_puesto) {
         //En caso de que el usuario haya pulsado sobre el confirmar
         if (result.isConfirmed) {
             //Llamamos a la función para eliminar el elemento
-            eliminarRegistro('puesto', id, tabla, id_puesto);
+            eliminarRegistro(tipo, id, tabla, id_puesto);
         }
     });
 }
@@ -953,7 +954,7 @@ function generarEtapaGlobal(etapas) {
                             </button>
 
                             <button type="button" class="text-red-500"
-                                onclick="eliminarRegistro('etapa_global', '${nombre_etapa}', 'etapas', ${id_puesto})">
+                                onclick="confirmarEliminar('question', 'Vas a eliminar estas etapas... ¿Quieres continuar?', '${nombre_etapa}', 'etapas', ${id_puesto}, 'etapa_global')">
                                 <i class="bi bi-trash-fill"></i>
                             </button>
                         </div>
@@ -1097,7 +1098,7 @@ function generarTablasPorEtapa(etapas, nombre_etapa) {
 
 
                                         <button id="botonEliminarEtapa" type="button" class="text-red-500 ml-2" 
-                                            onclick="eliminarRegistro('etapa_referencia', ${id_etapa}, 'etapas', ${id_puesto})">
+                                            onclick="confirmarEliminar('question', 'Vas a eliminar esta etapa... ¿Quieres continuar?', ${id_etapa}, 'etapas', ${id_puesto}, 'etapa_referencia')">
                                             <i class="bi bi-trash-fill"></i>
                                         </button>
                                     </h3>

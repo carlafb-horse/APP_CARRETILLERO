@@ -46,6 +46,8 @@ app.get("/", (req, res) => {
     res.render('app');
 });
 
+app.use('/pdfs', express.static(__dirname + '/public/docs'));
+
 //Configuramos el puerto
 app.listen(port, () => {
     console.log(`Servidor escuchando en el puerto ${port}`);
