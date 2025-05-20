@@ -1,7 +1,7 @@
-//Creamos las variable globales que hacen falta
+//Creamos las variables globales que hacen falta
 let referencia_componente = "", operacion_seleccionada, puestoID, conteosPorPuesto = [], numero_picadas;
 
-//Variable global donde almacenarems en un diccionario la referencia y el número de embalajes
+//Variable global donde almacenaremos en un diccionario la referencia y el número de embalajes
 let referencia_embalaje = {};
 
 //Variable que contiene los datos para el gráfico de chimenea
@@ -21,7 +21,7 @@ let peticionesFinalizadas = {
  * Función asincrona para obtener los puestos de la base de datos
  */
 async function fetchData() {
-    /**Obtenemos los PUESTOS */
+    // Obtenemos los PUESTOS
     try {
         //Almacenamos en una variable la respuesta de la llamada al end point para obtener los puestos
         const response = await fetch('/app/api/obtenerPuestos');
@@ -43,23 +43,6 @@ async function fetchData() {
     } catch (exception) {
         console.error("Error al obtener los puestos: ", exception);
     }
-
-    /**Obtenemos el conteo de Fs */
-    try {
-        //Almacenamos en una variable la respuesta a la llamada al end point para obtener el conteo de Fs
-        const response = await fetch('/app/api/conteoEtapas');
-
-        //Controlamos la respuesta
-        if (!response.ok) {
-            throw new Error('Error fetching data');
-        }
-
-        //Almacenamos en una variable el conteo obtenido
-        const data = await response.json();
-
-    } catch (exception) {
-        console.error("Error al obtener el conteo de las Fs: ", exception);
-    }
 }
 
 /**
@@ -69,8 +52,6 @@ async function fetchData() {
 function gestionarPuesto(data) {
     //Creamos una variable para almacenar el número de peticiones completadas
     let peticionesCompletadas = 0;
-
-    console.log("Data PUESTOS: ", data);
 
     //Almacenamos en una variable el número de puestos disponibles
     const totalPuestos = data.length;
@@ -348,7 +329,6 @@ function renderizarGrafico() {
         }]
     });
 
-    //Modificamos los valores para sustituir los 0 por 10 y los colores
     const conteos_controlados = conteos.map(conteo => (conteo));
 
 
@@ -645,7 +625,7 @@ function creacionBotones(contenedor_botones) {
     botonEliminarPuesto.className = "bg-red-600 text-white py-1 px-2 rounded hover:bg-red-500 transition duration-300";
     botonEliminarPuesto.setAttribute('data-id', puestoID)
     botonEliminarPuesto.onclick = () => {
-        eliminarRegistro('puesto', puestoID, 'puestos', puestoID);
+        confirmarEliminar("question", "Vas a eliminar este puesto... ¿Estas seguro de lo que vas hacer?", puestoID, "puestos");
     };
     contenedor_botones.appendChild(botonEliminarPuesto);
 
@@ -870,7 +850,7 @@ function confirmarEliminar(icono, titulo, id, tabla, id_puesto) {
         //En caso de que el usuario haya pulsado sobre el confirmar
         if (result.isConfirmed) {
             //Llamamos a la función para eliminar el elemento
-            eliminarRegistro(id, tabla, id_puesto);
+            eliminarRegistro('puesto', id, tabla, id_puesto);
         }
     });
 }
@@ -915,9 +895,9 @@ function generarEtapaGlobal(etapas) {
         const f = etapa.name
 
         var { nombre_etapa, id_etapa, id_puesto, distancia_total, actividad_minutos_picadas, num_picadas } = inicializarVariablesEtapas(etapa);
-        console.log(etapa)
 
-        //Creamos un if para controlar la distancia total de la etapa y asi poder modificar el color de la misma... en caso de la distancia sea de 0 a 49
+        //Creamos un if para controlar la distancia total de la etapa y asi poder modificar el color de la misma.
+        //En caso de la distancia sea de 0 a 49
         if (distancia_total >= 0 && distancia_total <= 49) {
             //Asignamos el color verde
             color_distancia = 'text-green-700';
@@ -938,6 +918,7 @@ function generarEtapaGlobal(etapas) {
             color_distancia = 'text-blue-700';
         }
 
+        //Asignamos el puesto
         id_puesto = etapa.id_puesto;
 
         //Generamos el HTML de la tabla para la etapa
@@ -945,13 +926,15 @@ function generarEtapaGlobal(etapas) {
             <div id="etapa-${id_puesto}-${nombre_etapa}" class="mb-4" data-id-etapa="${id_etapa}">
                 <h3 id="encabezadoEtapa-${nombre_etapa}"
                     class="text-lg font-semibold mb-2 p-2 rounded-lg animate-fadeIn text-black ${f === 'X' ? 'bg-stone-200' : ''}"
-                        style="${f !== 'X' ? `background-color: ${color_etapa};` : ''}"
-                    ${f !== 'X' ? `onclick="toggleEtapas(${id_puesto}, '${nombre_etapa}')"` : ''}>
+                        style="${f !== 'X' ? `background-color: ${color_etapa};` : ''}">
 
                     <div class="grid grid-cols-10 gap-4 w-full">
-                        <span class="col-span-4">Etapa: <strong>${nombre_etapa}</strong></span>
-                        <span class="col-span-2">Distancia (m): <strong class=${color_distancia}>${distancia_total}</strong></span>
-                        <span class="col-span-2">Tiempo (min): <strong>${actividad_minutos_picadas.toFixed(2)}</strong></span>
+                        <span class="col-span-4" onclick="toggleEtapas(${id_puesto}, '${nombre_etapa}')">
+                            Etapa: <strong>${nombre_etapa}</strong></span>
+                        <span class="col-span-2" onclick="toggleEtapas(${id_puesto}, '${nombre_etapa}')">
+                            Distancia (m): <strong class=${color_distancia}>${distancia_total}</strong></span>
+                        <span class="col-span-2" onclick="toggleEtapas(${id_puesto}, '${nombre_etapa}')">
+                            Tiempo (min): <strong>${actividad_minutos_picadas.toFixed(2)}</strong></span>
 
                         <div class="col-span-2 flex justify-between gap-2">
                             <button type="button" class="text-gray-500"
@@ -1126,8 +1109,8 @@ function generarTablasPorEtapa(etapas, nombre_etapa) {
                                                     <th class="px-4 py-2 border">Operación</th>
                                                     <th class="px-4 py-2 border">Símbolo (estándar MTM3)</th>
                                                     <th class="px-4 py-2 border">Tiempo MTM3 (CTMin)</th>
-                                                    <th class="px-4 py-2 border"><i class="bi bi-arrow-clockwise"></i></th>
-                                                    <th class="px-4 py-2 border"><i class="bi bi-clock-history"></i> Minutos</th>
+                                                    <th class="px-4 py-2 border"><i class="bi bi-box"></i></th>
+                                                    <th class="px-4 py-2 border"><i class="bi bi-clock"></i></th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -1576,7 +1559,6 @@ function anyadirEtapa(id_puesto, operacion, num_picadas) {
             const picadasSelect = document.getElementById('numeroPicadas');
             picadasSelect.value = num_picadas; // Establecemos el valor del numero de picadas seleccionado
 
-
             opcion = 2;
         }
 
@@ -1640,9 +1622,10 @@ function anyadirEtapa(id_puesto, operacion, num_picadas) {
 /**
  * Función para añadir la etapa
  */
-function anyadirEtapaFinal(id_puesto, operacion_seleccionada, num_picadas, numero_embalajes) {
-    //Serializamos el diccionario con las referencias y el número de embalahjes
+function anyadirEtapaFinal(id_puesto, operacion_seleccionada, num_picadas) {
+    //Serializamos el diccionario con las referencias y el número de embalajes
     referencia_embalaje = encodeURIComponent(JSON.stringify(referencia_embalaje));
+    let operacion = encodeURIComponent(operacion_seleccionada);
 
     if (id_puesto) {
         puestoID = id_puesto;
@@ -1652,70 +1635,11 @@ function anyadirEtapaFinal(id_puesto, operacion_seleccionada, num_picadas, numer
         numero_picadas = num_picadas;
     }
 
-    fetch(`/app/api/anyadirEtapa/${puestoID}/${referencia_embalaje}/${encodeURIComponent(operacion_seleccionada)}/${numero_picadas}`, {
+    fetch(`/app/api/anyadirEtapa/${puestoID}/${referencia_embalaje}/${operacion}/${numero_picadas}`, {
         method: "POST"
     });
 }
 
-
-/**
- * Función para disponer el modal del selector de etapas para las referencias
- */
-function mostrarModalEtapas(opcion) {
-    //Configuramos el título del modal del selector de etapas
-    $('#modal .modal-title').text('Selecciona una etapa');
-
-    //Configuramos el cuerpo del modal
-    $('#modal .modal-body').html(`
-        <form id="formulario_anyadirEtapa" method="POST">
-            <!-- Referencia del componente -->
-            <div class="mb-4">
-                <label for="referencia_componente" class="block text-gray-700 font-bold mb-2">Referencia del componente:</label>
-                <input type="text" id="referencia_componente" name="referencia_componente" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" value="${referencia_componente}" disabled>
-            </div>
-
-            <!-- Categorias de las etapas -->
-            <div class="relative inline-block w-64">
-                <label for="categoria" class="block text-sm font-medium text-gray-700 mb-2">Selecciona una categoría</label>
-                <select id="categoria" name="categoria" class="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
-                    <option value="descarga_carga">DESCARGA/CARGA</option>
-                    <option value="compras">COMPRAS</option>
-                    <option value="preparacion">PREPARACIÓN</option>
-                    <option value="distribucion">DISTRIBUCIÓN</option>
-                    <option value="varios">VARIOS</option>
-                    <option value="gestion_de_vacios_y_residuos">GESTIÓN DE VACÍOS Y RESIDUOS</option>
-                    <option value="operaciones_manuales">OPERACIONES MANUALES</option>
-                </select>
-            </div>
-
-            <!-- Operacion de la categoria -->
-            <div class="relative inline-block w-64">
-                <label for="operacion" class="block text-sm font-medium text-gray-700 mb-2">Selecciona una operación</label>
-                <select id="operacion" name="operacion" class="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
-
-                </select>
-            </div>
-
-            <!-- Botón de continuar -->
-            <div class="mt-6">
-                <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-500 transition duration-300">Continuar</button>
-            </div>
-        </form>
-    `);
-
-
-    //Añadimos la operación cada vez que se seleccione una operación
-    $('#operacion').on('change', function () {
-        //Almacenamos la operación seleccionada
-        operacion_seleccionada = $(this).val();
-    });
-
-    //Mostramos el modal
-    $('#modal').modal('show');
-
-    //Llamamos a la función para añadir la etapa al puesto
-    subirEtapa(opcion);
-}
 
 /**
  * Función para añadir una etapa
@@ -1919,8 +1843,6 @@ function editarDistancia(id_puesto, operacion) {
                 });
         });
     }
-
-
 }
 
 
@@ -1953,11 +1875,11 @@ function eliminarRegistro(tipo, id_elemento, tabla, id_puesto) {
                 }
                 //En caso de que falle
             } else if (response.status === 501) {
-                mostrarAlerta("Error en la creación del puesto", "Se ha producido un error a la hora de crear el puesto", "error", 0);
+                mostrarAlerta("Error", "Se ha producido un error", "error", 0);
 
                 //En casos no controlados
             } else {
-                mostrarAlerta("Estado no controlado", "No se ha sido capaz de controlar el estado de la creación del puesto", "question", null);
+                mostrarAlerta("Estado no controlado", "No se ha sido capaz de controlar el estado", "question", null);
             }
         });
 }

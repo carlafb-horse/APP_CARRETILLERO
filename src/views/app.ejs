@@ -83,7 +83,14 @@
             </div>
 
             <!-- Contenedor principal -->
-            <div class="flex-1 flex flex-col overflow-auto">
+            <div class="flex-1 flex flex-col overflow-auto relative">
+
+                <!-- Botón en para el manual de usuario -->
+                <a href="/ruta/manual-usuario.pdf" target="_blank"
+                    class="absolute top-4 right-4 bg-white hover:bg-gray-200 text-black text-sm px-3 py-1 rounded shadow flex items-center space-x-1"
+                    title="Ver manual de ayuda">
+                    <i class="bi bi-book"></i>
+                </a>
 
                 <!-- Sección superior (Header o barra superior) -->
                 <header class="bg-gray-800 p-4 rounded-lg max-w-4xl mx-auto flex items-center">

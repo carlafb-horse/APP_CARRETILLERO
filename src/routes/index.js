@@ -1105,7 +1105,7 @@ router.delete('/eliminarRegistro/:id_elemento/:tabla/:id_puesto', (req, res) => 
 
         //Ejecutamos la consulta
         connection.query(query, array_argumetos, (error, results) => {
-            console.log("ELIMINAR!!!!!!!!!!!", connection.format(query, array_argumetos))
+            console.log("ELIMINAR:", connection.format(query, array_argumetos))
             //En caso de que falle
             if (error) {
                 console.error("> Error: ", error);
@@ -1133,25 +1133,7 @@ router.delete('/eliminarRegistro/:id_elemento/:tabla/:id_puesto', (req, res) => 
                         console.error("> Error: ", error);
                     }
                 })
-            } else if (tabla === "EN_IFM_STANDARD") {
-                const query = `
-                    DELETE
-                    FROM
-                        chimenea
-                    WHERE
-                        id_puesto = ? AND
-                        id_etapa = ?
-                `;
-
-                //Ejecutamos la consulta
-                connection.query(query, [id_puesto, id_elemento], (error, result) => {
-                    //En caso de que falle
-                    if (error) {
-                        console.error("> Error: ", error);
-                    }
-                })
             }
-
             //Liberamos la conexión
             connection.release();
 

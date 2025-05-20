@@ -1,109 +1,50 @@
-# APP CARRETILLERO
+# 🚜 APP CARRETILLERO
 
-## Descripción del Proyecto
+## 📦 Descripción del Proyecto
 
-**'APP CARRETILLERO'** es una solución integral diseñada para gestionar y optimizar las operaciones logísticas relacionadas con el manejo de carretillas en entornos industriales. Este proyecto tiene como objetivo principal mejorar la eficiencia operativa, reducir los tiempos de inactividad y proporcionar una visión clara y detallada de las actividades realizadas en cada puesto de trabajo.
+**APP CARRETILLERO** es una solución integral diseñada para **gestionar y optimizar operaciones logísticas** relacionadas con el manejo de carretillas en entornos industriales.
 
-La aplicación permite a los usuarios gestionar las etapas operativas de manera eficiente, proporcionando herramientas para añadir, editar y eliminar etapas según las necesidades del flujo de trabajo. Además, incluye funcionalidades avanzadas para la visualización de datos mediante gráficos interactivos que ayudan a identificar cuellos de botella, analizar la saturación de los puestos y evaluar el rendimiento general.
-
-El backend de la aplicación está construido sobre una arquitectura que utiliza Node.js y Express.js para manejar las solicitudes y MySQL como base de datos para almacenar y procesar grandes volúmenes de datos en tiempo real. Por otro lado, el frontend está diseñado con TailwindCSS y librerías de JavaScript para garantizar una experiencia de usuario fluida e intuitiva.
-
-Esta aplicaicón no solo facilita la gestión de referencias y operaciones, sino que también permite a los usuarios realizar un seguimiento detallado de las actividades, asegurando que cada etapa del proceso logístico esté documentada y optimizada.
-
-En resumen, **'APP CARRETILLERO'** es una herramienta que combina tecnología con un diseño enfocado a facilitar la experiencia del usuario, ayudando a transformar y mejorar la forma en que se gestionan las operaciones logísticas relacionadas con el manejo de carretillas.
+🎯 **Objetivo principal:**  
+Mejorar la **eficiencia operativa**, reducir **tiempos de inactividad** y ofrecer una visión clara de las actividades realizadas en cada puesto de trabajo.
 
 
-## Estructura del Proyecto
-
-El proyecto está organizado en los siguientes directorios y archivos principales:
-
+### ⚙️ Funcionalidades Principales
 ---
 
-## Instalación
+✅ **Gestión de etapas operativas:**  
+Añade, edita y elimina etapas o puestos según las necesidades del flujo de trabajo.
 
-### Requisitos Previos
+📊 **Visualización de datos:**  
+Gráficos interactivos para:
+- Detectar **cuellos de botella** 🛑  
+- Analizar la **saturación de los puestos** 💼  
+- Evaluar el **rendimiento general** 📈  
 
-- Node.js (v14 o superior)
-- MySQL
-- npm (Node Package Manager)
-
-### Pasos de Instalación
-
-1. Clona este repositorio:
-   ```bash
-   git clone https://github.com/tu-usuario/APP_CARRETILLERO.git
-   cd APP_CARRETILLERO
-2. Instala las dependencias:
-    ```bash
-    npm install
-3. Configura la base de datos:
-    - Crea una base de datos MySQL.
-    - Importa el esquema y los datos iniciales desde el archivo database.sql (si está disponible).
-    - Configura las credenciales de la base de datos en el archivo server.js o en un archivo .env.
-
-4. Inicia el servidor:
-    ```bash
-    npm start
-5. Accede a la aplicación en tu navegador:  
-    http://localhost:3000
+📁 **Seguimiento detallado de actividades:**  
+Todo el proceso logístico queda documentado y optimizado paso a paso.
 
 
-## Funcionalidades Principales
-#### 1. Gestión de Etapas
-- Añadir, editar y eliminar etapas operativas.
-- Visualizar detalles de cada etapa, como distancia, tiempo y número de picadas.
-#### 2. Visualización de Gráficos
-- Gráficos de saturación por puesto.
-- Gráficos de chimenea para analizar tiempos de actividad.
-#### 3. Gestión de Referencias
-- Comprobación de referencias válidas.
-- Vinculación de referencias a etapas específicas.
-#### 4. Modal Interactivo
-- Configuración de modales para introducir datos manualmente.
-- Visualización de informes detallados.
+### 🧱 Tecnologías Utilizadas
+---
 
-## Endpoints Principales
-Rutas Backend (src/routes/index.js)
-#### 1. Gestión de Etapas
-- POST /anyadirEtapa/:puesto_id/:referencia_embalaje/:operacion_seleccionada/:numero_picadas
+🔹 **Backend:**
+- Node.js  
+- Express.js  
+- MySQL (para almacenamiento y procesamiento en tiempo real)
 
-#### 2. Visualización de Datos
-- GET /graficoChimenea/:id_puesto
-- GET /conteoEmbalajes/:referencia_componente
-
-#### 3. Gestión de Referencias
-- GET /comprobarReferencias/:referencias
-- GET /obtenerReferencias-puesto/:puesto_id
-
-#### 4. Otros
-- GET /fechaTomaDatos
-- GET /obtenerEmbalajes/:referencia/:puesto_id
+🔹 **Frontend:**
+- TailwindCSS  
+- Librerías JavaScript (para una experiencia fluida e intuitiva)
 
 
-## Archivos Clave
-#### 1. src/public/script/app.js
-- Contiene la lógica principal del frontend, incluyendo:  
-    - Funciones para renderizar gráficos (renderizarGrafico).
-    - Gestión de etapas (anyadirEtapa, subirEtapa).
-    - Configuración de modales (anyadirReferenciaManual).
-#### 2. src/routes/index.js
-- Define los endpoints del backend, incluyendo:
-    - Gestión de etapas y referencias.
-    - Consultas SQL para obtener y actualizar datos.
-#### 3. src/public/css/style.css
-- Estilos personalizados para la interfaz de usuario.
+### 🔗 Documentación
+---
 
-## Tecnologías Utilizadas
-#### - Frontend:
-- HTML, CSS (TailwindCSS, Bootstrap)
-- JavaScript (Chart.js, SortableJS)
-#### - Backend:
-- Node.js, Express.js
-- MySQL
-#### - Otros:
-- EJS para plantillas dinámicas.
-- Fetch API para comunicación cliente-servidor.
+📄 **[Memoria del Proyecto](./docs/Memoria_APP_Carretillero.pdf)**  
+📖 **[Manual de Usuario](./docs/Manual_Usuario_APP_Carretillero.pdf)**
 
-## Contacto
-- Email: [carla.fuente-bernardino-extern@horse.tech](mailto:carla.fuente-bernardino-extern@horse.tech)
-- GitHub: https://github.com/carlafb-horse
+
+### 📌 Conclusión
+---
+
+**APP CARRETILLERO** es una herramienta que combina tecnología con un diseño enfocado a facilitar la experiencia del usuario, ayudando a **transformar y mejorar** la forma en que se gestionan las operaciones logísticas relacionadas con el manejo de carretillas.
