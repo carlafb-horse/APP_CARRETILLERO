@@ -41,8 +41,8 @@ Todo el proceso logístico queda documentado y optimizado paso a paso.
 ### 🔗 Documentación
 ---
 
-📄 **[Memoria del Proyecto](https://drive.google.com/file/d/1kHcjeW6CGPZt4LTrraSxallgx3kXpn8b/view?usp=sharing)**  
-📖 **[Manual de Usuario](https://drive.google.com/file/d/12emPOvHL6dCphSmfyLhnfYwVA380ukbs/view?usp=sharing)**
+📄 **[Memoria del Proyecto](src/public/docs/delaFuente_Bernardino_Carla_Memoria_ProyectoFinal_DAM25.pdf)**  
+📖 **[Manual de Usuario](src/public/docs/delaFuente_Bernardino_Carla_Manual_ProyectoFinal_DAM25.pdf)**
 
 ### 📌 Conclusión
 ---
