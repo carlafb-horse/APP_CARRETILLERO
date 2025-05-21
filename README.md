@@ -1,7 +1,6 @@
 # 🚜 APP CARRETILLERO
 
 ## 📦 Descripción del Proyecto
----
 
 **APP CARRETILLERO** es una solución integral diseñada para **gestionar y optimizar operaciones logísticas** relacionadas con el manejo de carretillas en entornos industriales.
 
