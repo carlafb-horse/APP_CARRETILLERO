@@ -48,6 +48,18 @@ app.get("/", (req, res) => {
 
 app.use('/pdfs', express.static(__dirname + '/public/docs'));
 
+// Ruta para descargar la memoria
+app.get('/descargar/memoria', (req, res) => {
+    const filePath = path.join(__dirname, '/public/docs/memoria-app-carretillero.pdf');
+    res.download(filePath, 'delaFuente_Bernardino_Carla_Memoria_ProyectoFinal_DAM25.pdf'); // nombre visible al descargar
+});
+
+// Ruta para descargar el manual
+app.get('/descargar/manual', (req, res) => {
+    const filePath = path.join(__dirname, 'src/public/docs/manual-usuario-app-carretillero.pdf');
+    res.download(filePath, 'delaFuente_Bernardino_Carla_Manual_ProyectoFinal_DAM25.pdf');
+});
+
 //Configuramos el puerto
 app.listen(port, () => {
     console.log(`Servidor escuchando en el puerto ${port}`);
