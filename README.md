@@ -41,8 +41,8 @@ Todo el proceso logístico queda documentado y optimizado paso a paso.
 ### 🔗 Documentación
 ---
 
-📄 **[Memoria del Proyecto](src/public/docs/memoria-app-carretillero.pdf)**  
-📖 **[Manual de Usuario](src/public/docs/manual-usuario-app-carretillero.pdf)**
+📄 **[Memoria del Proyecto](https://drive.google.com/file/d/1kHcjeW6CGPZt4LTrraSxallgx3kXpn8b/view?usp=sharing)**  
+📖 **[Manual de Usuario](https://drive.google.com/file/d/12emPOvHL6dCphSmfyLhnfYwVA380ukbs/view?usp=sharing)**
 
 ### 📌 Conclusión
 ---
